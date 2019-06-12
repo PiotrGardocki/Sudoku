@@ -25,11 +25,13 @@ CONFIG += c++11
 SOURCES += \
     src/main.cpp \
     src/MainWindow.cpp \
+    src/SudokuBoard.cpp \
     src/SudokuIndex.cpp \
     src/IndexError.cpp
 
 HEADERS += \
     src/MainWindow.hpp \
+    src/SudokuBoard.hpp \
     src/SudokuIndex.hpp \
     src/IndexError.hpp
 
