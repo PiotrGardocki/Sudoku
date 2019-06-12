@@ -24,10 +24,14 @@ CONFIG += c++11
 
 SOURCES += \
     src/main.cpp \
-    src/MainWindow.cpp
+    src/MainWindow.cpp \
+    src/SudokuIndex.cpp \
+    src/IndexError.cpp
 
 HEADERS += \
-    src/MainWindow.hpp
+    src/MainWindow.hpp \
+    src/SudokuIndex.hpp \
+    src/IndexError.hpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
