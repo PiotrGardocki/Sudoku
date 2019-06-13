@@ -3,13 +3,13 @@
 #include <stdexcept>
 
 SudokuBoard::SudokuBoard()
-    : numbers(9, std::vector<unsigned short>(9, 0))
+    : numbers(81, 0)
 {
 }
 
 unsigned short SudokuBoard::getNumber(SudokuIndex index)
 {
-    return numbers[index.getRow()][index.getColumn()];
+    return numbers[toInternalIndex(index)];
 }
 
 std::string SudokuBoard::getFieldAsString(SudokuIndex index)
@@ -26,17 +26,22 @@ void SudokuBoard::setNumber(SudokuIndex index, unsigned short number)
     if (number < 1 || number > 9)
         throw std::runtime_error(std::string("Field in sudoku board can have only value in range [1,9], given: ") + std::to_string(number));
 
-    numbers[index.getRow()][index.getColumn()] = number;
+    numbers[toInternalIndex(index)] = number;
 }
 
 void SudokuBoard::setFieldAsEmpty(SudokuIndex index)
 {
     // empty field has value 0
-    numbers[index.getRow()][index.getColumn()] = 0;
+    numbers[toInternalIndex(index)] = 0;
 }
 
 bool SudokuBoard::isFieldEmpty(SudokuIndex index)
 {
     // empty field has value 0
     return getNumber(index) == 0;
+}
+
+unsigned short SudokuBoard::toInternalIndex(SudokuIndex index) const
+{
+    return index.getRow() * 9 + index.getColumn();
 }

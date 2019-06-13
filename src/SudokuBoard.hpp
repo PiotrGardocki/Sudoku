@@ -18,7 +18,10 @@ public:
     bool isFieldEmpty(SudokuIndex index);
 
 private:
-    std::vector<std::vector<unsigned short>> numbers;
+    unsigned short toInternalIndex(SudokuIndex index) const;
+
+private:
+    std::vector<unsigned short> numbers;
 };
 
 #endif // SUDOKUBOARD_HPP
