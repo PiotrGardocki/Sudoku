@@ -9,12 +9,12 @@ SudokuBoard::SudokuBoard()
 {
 }
 
-unsigned short SudokuBoard::getNumber(SudokuIndex index)
+unsigned short SudokuBoard::getNumber(SudokuIndex index) const
 {
     return numbers[toInternalIndex(index)];
 }
 
-std::string SudokuBoard::getFieldAsString(SudokuIndex index)
+std::string SudokuBoard::getFieldAsString(SudokuIndex index) const
 {
     auto number = getNumber(index);
 
@@ -37,7 +37,7 @@ void SudokuBoard::setFieldAsEmpty(SudokuIndex index)
     numbers[toInternalIndex(index)] = 0;
 }
 
-bool SudokuBoard::isFieldEmpty(SudokuIndex index)
+bool SudokuBoard::isFieldEmpty(SudokuIndex index) const
 {
     // empty field has value 0
     return getNumber(index) == 0;
@@ -96,7 +96,7 @@ namespace
     }
 }
 
-bool SudokuBoard::doesFieldCollide(SudokuIndex index)
+bool SudokuBoard::doesFieldCollide(SudokuIndex index) const
 {
     if (isFieldEmpty(index))
         return false;

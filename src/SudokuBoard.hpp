@@ -11,13 +11,13 @@ class SudokuBoard
 public:
     SudokuBoard();
 
-    unsigned short getNumber(SudokuIndex index);
-    std::string getFieldAsString(SudokuIndex index);
+    unsigned short getNumber(SudokuIndex index) const;
+    std::string getFieldAsString(SudokuIndex index) const;
     void setNumber(SudokuIndex index, unsigned short number);
     void setFieldAsEmpty(SudokuIndex index);
-    bool isFieldEmpty(SudokuIndex index);
+    bool isFieldEmpty(SudokuIndex index) const;
 
-    bool doesFieldCollide(SudokuIndex index);
+    bool doesFieldCollide(SudokuIndex index) const;
 
     static SudokuBoard generateBoard();
 
