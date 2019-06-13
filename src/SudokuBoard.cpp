@@ -21,7 +21,7 @@ std::string SudokuBoard::getFieldAsString(SudokuIndex index)
     return std::to_string(number);
 }
 
-bool SudokuBoard::setNumber(SudokuIndex index, unsigned short number)
+void SudokuBoard::setNumber(SudokuIndex index, unsigned short number)
 {
     if (number < 1 || number > 9)
         throw std::runtime_error(std::string("Field in sudoku board can have only value in range [1,9], given: ") + std::to_string(number));

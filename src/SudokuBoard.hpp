@@ -13,7 +13,7 @@ public:
 
     unsigned short getNumber(SudokuIndex index);
     std::string getFieldAsString(SudokuIndex index);
-    bool setNumber(SudokuIndex index, unsigned short number);
+    void setNumber(SudokuIndex index, unsigned short number);
     void setFieldAsEmpty(SudokuIndex index);
     bool isFieldEmpty(SudokuIndex index);
 
