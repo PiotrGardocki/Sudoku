@@ -68,7 +68,7 @@ Qt::ItemFlags SudokuBoardModel::flags(const QModelIndex &index) const
     if (!index.isValid())
         return Qt::NoItemFlags;
 
-    return Qt::ItemIsEnabled | Qt::ItemIsEditable;
+    return Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemNeverHasChildren;
 }
 
 QVariant SudokuBoardModel::headerData(int /*section*/, Qt::Orientation /*orientation*/, int /*role*/) const
