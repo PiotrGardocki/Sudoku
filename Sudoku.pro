@@ -27,13 +27,19 @@ SOURCES += \
     src/MainWindow.cpp \
     src/SudokuBoard.cpp \
     src/SudokuIndex.cpp \
-    src/IndexError.cpp
+    src/IndexError.cpp \
+    src/vendor/RandomNumbersLibrary/RandomGeneratorBase.cpp
 
 HEADERS += \
     src/MainWindow.hpp \
     src/SudokuBoard.hpp \
     src/SudokuIndex.hpp \
-    src/IndexError.hpp
+    src/IndexError.hpp \
+    src/vendor/RandomNumbersLibrary/RandomGeneratorBase.hpp \
+    src/vendor/RandomNumbersLibrary/RandomIntegerGenerator.hpp \
+    src/vendor/RandomNumbersLibrary/RandomIntegerGenerator.inl \
+    src/vendor/RandomNumbersLibrary/RandomRealNumberGenerator.hpp \
+    src/vendor/RandomNumbersLibrary/RandomRealNumberGenerator.inl
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
