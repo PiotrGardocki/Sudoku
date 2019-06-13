@@ -17,6 +17,10 @@ public:
     void setFieldAsEmpty(SudokuIndex index);
     bool isFieldEmpty(SudokuIndex index);
 
+    bool doesFieldCollide(SudokuIndex index);
+
+    static SudokuBoard generateBoard();
+
 private:
     static unsigned short toInternalIndex(const SudokuIndex & index);
 
