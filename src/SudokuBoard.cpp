@@ -41,7 +41,7 @@ bool SudokuBoard::isFieldEmpty(SudokuIndex index)
     return getNumber(index) == 0;
 }
 
-unsigned short SudokuBoard::toInternalIndex(SudokuIndex index) const
+unsigned short SudokuBoard::toInternalIndex(const SudokuIndex & index)
 {
     return index.getRow() * 9 + index.getColumn();
 }

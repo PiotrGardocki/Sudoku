@@ -18,7 +18,7 @@ public:
     bool isFieldEmpty(SudokuIndex index);
 
 private:
-    unsigned short toInternalIndex(SudokuIndex index) const;
+    static unsigned short toInternalIndex(const SudokuIndex & index);
 
 private:
     std::vector<unsigned short> numbers;
