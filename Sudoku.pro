@@ -22,6 +22,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
+INCLUDEPATH += src/
+
 SOURCES += \
     src/main.cpp \
     src/MainWindow.cpp \
@@ -41,7 +43,9 @@ HEADERS += \
     src/vendor/RandomNumbersLibrary/RandomIntegerGenerator.inl \
     src/vendor/RandomNumbersLibrary/RandomRealNumberGenerator.hpp \
     src/vendor/RandomNumbersLibrary/RandomRealNumberGenerator.inl \
-    src/SudokuBoardModel.hpp
+    src/SudokuBoardModel.hpp \
+    src/vendor/catch.hpp \
+    src/unit_tests/catch.hpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
