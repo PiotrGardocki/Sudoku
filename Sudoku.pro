@@ -31,7 +31,8 @@ SOURCES += \
     src/SudokuIndex.cpp \
     src/IndexError.cpp \
     src/vendor/RandomNumbersLibrary/RandomGeneratorBase.cpp \
-    src/SudokuBoardModel.cpp
+    src/SudokuBoardModel.cpp \
+    src/unit_tests/SudokuIndexTest.cpp
 
 HEADERS += \
     src/MainWindow.hpp \
