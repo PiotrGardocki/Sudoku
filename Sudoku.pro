@@ -33,7 +33,8 @@ SOURCES += \
     src/vendor/RandomNumbersLibrary/RandomGeneratorBase.cpp \
     src/SudokuBoardModel.cpp \
     src/unit_tests/IndexErrorTest.cpp \
-    src/unit_tests/SudokuIndexTest.cpp
+    src/unit_tests/SudokuIndexTest.cpp \
+    src/unit_tests/SudokuBoardTest.cpp
 
 HEADERS += \
     src/MainWindow.hpp \
