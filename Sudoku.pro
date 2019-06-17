@@ -34,7 +34,8 @@ SOURCES += \
     src/SudokuBoardModel.cpp \
     src/unit_tests/IndexErrorTest.cpp \
     src/unit_tests/SudokuIndexTest.cpp \
-    src/unit_tests/SudokuBoardTest.cpp
+    src/unit_tests/SudokuBoardTest.cpp \
+    src/unit_tests/SudokuBoardModelTest.cpp
 
 HEADERS += \
     src/MainWindow.hpp \
