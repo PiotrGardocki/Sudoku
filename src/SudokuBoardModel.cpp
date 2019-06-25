@@ -5,7 +5,6 @@
 SudokuBoardModel::SudokuBoardModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
-
 }
 
 int SudokuBoardModel::columnCount(const QModelIndex &index) const
