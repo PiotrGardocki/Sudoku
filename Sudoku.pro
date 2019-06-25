@@ -25,6 +25,7 @@ CONFIG += c++11
 INCLUDEPATH += src/
 
 SOURCES += \
+    src/LayoutWithSquaredWidget.cpp \
     src/main.cpp \
     src/MainWindow.cpp \
     src/SudokuBoard.cpp \
@@ -38,6 +39,7 @@ SOURCES += \
     src/unit_tests/SudokuBoardModelTest.cpp
 
 HEADERS += \
+    src/LayoutWithSquaredWidget.hpp \
     src/MainWindow.hpp \
     src/SudokuBoard.hpp \
     src/SudokuIndex.hpp \
