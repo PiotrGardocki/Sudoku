@@ -26,6 +26,7 @@ INCLUDEPATH += src/
 
 SOURCES += \
     src/LayoutWithSquaredWidget.cpp \
+    src/SudokuBoardView.cpp \
     src/main.cpp \
     src/MainWindow.cpp \
     src/SudokuBoard.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     src/LayoutWithSquaredWidget.hpp \
     src/MainWindow.hpp \
     src/SudokuBoard.hpp \
+    src/SudokuBoardView.hpp \
     src/SudokuIndex.hpp \
     src/IndexError.hpp \
     src/vendor/RandomNumbersLibrary/RandomGeneratorBase.hpp \
