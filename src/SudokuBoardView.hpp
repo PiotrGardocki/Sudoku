@@ -19,6 +19,8 @@ private:
     constexpr static short smallRectFrame = 1;
 
     QPoint getBoardStartingPoint(const QRect & area);
+
+    SudokuBoard sudokuBoard;
 };
 
 #endif // SUDOKUBOARDVIEW_HPP
