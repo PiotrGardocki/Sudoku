@@ -14,6 +14,7 @@ SudokuBoardView::SudokuBoardView(QWidget * parent)
 {
     setMinimumSize(400, 400);
     sudokuBoard = SudokuBoard::generateBoard();
+    setFocusPolicy(Qt::StrongFocus);
 }
 
 void SudokuBoardView::paintEvent(QPaintEvent *event)
@@ -99,6 +100,39 @@ void SudokuBoardView::paintEvent(QPaintEvent *event)
             }
         }
     }
+}
+
+void SudokuBoardView::keyPressEvent(QKeyEvent *event)
+{
+    if (selectedRow == -1 || selectedColumn == -1)
+        return;
+
+//    if (event->isAutoRepeat())
+//        return;
+
+    auto key = event->key();
+
+    switch (key)
+    {
+    case Qt::Key_Up:
+        if (selectedRow > 0)
+            --selectedRow;
+        break;
+    case Qt::Key_Down:
+        if (selectedRow < 8)
+            ++selectedRow;
+        break;
+    case Qt::Key_Left:
+        if (selectedColumn > 0)
+            --selectedColumn;
+        break;
+    case Qt::Key_Right:
+        if (selectedColumn < 8)
+            ++selectedColumn;
+        break;
+    }
+
+    repaint();
 }
 
 QPoint SudokuBoardView::getBoardStartingPoint(const QRect &area)
