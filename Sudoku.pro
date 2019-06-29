@@ -25,7 +25,6 @@ CONFIG += c++11
 INCLUDEPATH += src/
 
 SOURCES += \
-    src/LayoutWithSquaredWidget.cpp \
     src/SudokuBoardView.cpp \
     src/main.cpp \
     src/MainWindow.cpp \
@@ -33,14 +32,11 @@ SOURCES += \
     src/SudokuIndex.cpp \
     src/IndexError.cpp \
     src/vendor/RandomNumbersLibrary/RandomGeneratorBase.cpp \
-    src/SudokuBoardModel.cpp \
     src/unit_tests/IndexErrorTest.cpp \
     src/unit_tests/SudokuIndexTest.cpp \
-    src/unit_tests/SudokuBoardTest.cpp \
-    src/unit_tests/SudokuBoardModelTest.cpp
+    src/unit_tests/SudokuBoardTest.cpp
 
 HEADERS += \
-    src/LayoutWithSquaredWidget.hpp \
     src/MainWindow.hpp \
     src/SudokuBoard.hpp \
     src/SudokuBoardView.hpp \
@@ -51,7 +47,6 @@ HEADERS += \
     src/vendor/RandomNumbersLibrary/RandomIntegerGenerator.inl \
     src/vendor/RandomNumbersLibrary/RandomRealNumberGenerator.hpp \
     src/vendor/RandomNumbersLibrary/RandomRealNumberGenerator.inl \
-    src/SudokuBoardModel.hpp \
     src/vendor/catch.hpp \
     src/unit_tests/catch.hpp
 
