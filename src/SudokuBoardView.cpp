@@ -2,7 +2,6 @@
 
 #include <QPaintEvent>
 #include <QPainter>
-#include <QResizeEvent>
 #include <QPen>
 
 #include <cmath>
@@ -110,27 +109,8 @@ void SudokuBoardView::keyPressEvent(QKeyEvent *event)
 
     auto key = event->key();
 
-    switch (key)
-    {
-    case Qt::Key_Up:
-        if (selectedRow > 0)
-            --selectedRow;
-        break;
-    case Qt::Key_Down:
-        if (selectedRow < 8)
-            ++selectedRow;
-        break;
-    case Qt::Key_Left:
-        if (selectedColumn > 0)
-            --selectedColumn;
-        break;
-    case Qt::Key_Right:
-        if (selectedColumn < 8)
-            ++selectedColumn;
-        break;
-    }
-
-    repaint();
+    if (!handleArrowKey(key))
+        handleNumberKey(key);
 }
 
 QPoint SudokuBoardView::getBoardStartingPoint(const QRect &area)
@@ -149,4 +129,73 @@ QPoint SudokuBoardView::getBoardStartingPoint(const QRect &area)
     topMargin += smallRectFrame / 2;
 
     return area.topLeft() + QPoint(leftMargin, topMargin);
+}
+
+bool SudokuBoardView::handleArrowKey(int key)
+{
+    switch (key)
+    {
+    case Qt::Key_Up:
+        if (selectedRow > 0)
+            --selectedRow;
+        break;
+    case Qt::Key_Down:
+        if (selectedRow < 8)
+            ++selectedRow;
+        break;
+    case Qt::Key_Left:
+        if (selectedColumn > 0)
+            --selectedColumn;
+        break;
+    case Qt::Key_Right:
+        if (selectedColumn < 8)
+            ++selectedColumn;
+        break;
+    default:
+        return false;
+    }
+
+    repaint();
+    return true;
+}
+
+bool SudokuBoardView::handleNumberKey(int key)
+{
+    auto keyValue = getNumKeyValue(key);
+
+    if (keyValue != 0)
+    {
+        sudokuBoard.setNumber(SudokuIndex(static_cast<unsigned short>(selectedRow), static_cast<unsigned short>(selectedColumn)),
+                              keyValue);
+        repaint();
+        return true;
+    }
+    return false;
+}
+
+unsigned short SudokuBoardView::getNumKeyValue(int key)
+{
+    switch (key)
+    {
+    case Qt::Key_1:
+        return 1;
+    case Qt::Key_2:
+        return 2;
+    case Qt::Key_3:
+        return 3;
+    case Qt::Key_4:
+        return 4;
+    case Qt::Key_5:
+        return 5;
+    case Qt::Key_6:
+        return 6;
+    case Qt::Key_7:
+        return 7;
+    case Qt::Key_8:
+        return 8;
+    case Qt::Key_9:
+        return 9;
+    default:
+        return 0;
+    }
 }

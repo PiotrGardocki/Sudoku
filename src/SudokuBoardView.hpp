@@ -18,14 +18,18 @@ protected:
     virtual void keyPressEvent(QKeyEvent * event) override;
 
 private:
+    QPoint getBoardStartingPoint(const QRect & area);
+    bool handleArrowKey(int key);
+    bool handleNumberKey(int key);
+    unsigned short getNumKeyValue(int key);
+
+private:
     constexpr static short bigRectFrame = 2;
     constexpr static short smallRectFrame = 1;
 
-    QPoint getBoardStartingPoint(const QRect & area);
-
     SudokuBoard sudokuBoard;
-    unsigned short selectedRow = 0;
-    unsigned short selectedColumn = 0;
+    short selectedRow = 0;
+    short selectedColumn = 0;
 };
 
 #endif // SUDOKUBOARDVIEW_HPP
