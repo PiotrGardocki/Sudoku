@@ -13,6 +13,7 @@ SudokuBoardView::SudokuBoardView(QWidget * parent)
     : QWidget(parent)
 {
     setMinimumSize(400, 400);
+    sudokuBoard = SudokuBoard::generateBoard();
 }
 
 void SudokuBoardView::paintEvent(QPaintEvent *event)
@@ -47,9 +48,15 @@ void SudokuBoardView::paintEvent(QPaintEvent *event)
 
     pen.setWidth(smallRectFrame);
     painter.setPen(pen);
+    QBrush brush(Qt::white);
+    painter.setBrush(brush);
 
     fieldWidth++;
     QSize smallSize(fieldWidth, fieldWidth);
+
+    auto font = painter.font();
+    font.setPixelSize(static_cast<int>(fieldWidth*0.8));
+    painter.setFont(font);
 
     for (int i = 0; i < 3; ++i)
     {
@@ -74,6 +81,20 @@ void SudokuBoardView::paintEvent(QPaintEvent *event)
                     auto newPoint = point + QPoint(k*fieldWidth, g*fieldWidth);
                     QRect r(newPoint, smallSize);
                     painter.drawRect(r);
+
+                    auto row = j*3+g;
+                    auto column = i*3+k;
+                    SudokuIndex index(static_cast<unsigned short>(row), static_cast<unsigned short>(column));
+                    auto text = sudokuBoard.getFieldAsString(index);
+
+                    if (row == selectedRow && column == selectedColumn)
+                    {
+                        QRect fillRect = r;
+                        fillRect -= QMargins(1, 1, 0, 0);
+                        painter.fillRect(fillRect, Qt::blue);
+                    }
+
+                    painter.drawText(r, Qt::AlignCenter, QString::fromStdString(text));
                 }
             }
         }

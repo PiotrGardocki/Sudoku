@@ -1,6 +1,8 @@
 #ifndef SUDOKUBOARDVIEW_HPP
 #define SUDOKUBOARDVIEW_HPP
 
+#include "SudokuBoard.hpp"
+
 #include <QWidget>
 
 class SudokuBoardView : public QWidget
