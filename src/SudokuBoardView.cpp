@@ -1,6 +1,4 @@
 #include "SudokuBoardView.hpp"
-#include "SudokuBoardModel.hpp"
-#include "SudokuFieldDelegate.hpp"
 
 #include <QPaintEvent>
 #include <QPainter>
