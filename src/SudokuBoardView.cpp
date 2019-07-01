@@ -17,11 +17,11 @@ SudokuBoardView::SudokuBoardView(QWidget * parent)
 void SudokuBoardView::paintEvent(QPaintEvent *event)
 {
     auto rect = event->rect();
-    auto fieldWidth = std::min(rect.width(), rect.height());
+    fieldWidth = std::min(rect.width(), rect.height());
     fieldWidth -= (4*bigRectFrame + 6*smallRectFrame);
     fieldWidth /= 9;
 
-    auto startingPoint = getBoardStartingPoint(rect);
+    startingPoint = getBoardStartingPoint(rect);
 
     auto bigRectSize = bigRectFrame + 3*fieldWidth + 2*smallRectFrame;
     QRect bigRect(startingPoint, QSize(bigRectSize, bigRectSize));
@@ -111,6 +111,33 @@ void SudokuBoardView::keyPressEvent(QKeyEvent *event)
 
     if (!handleArrowKey(key))
         handleNumberKey(key);
+}
+
+void SudokuBoardView::mousePressEvent(QMouseEvent *event)
+{
+    auto mousePosition = event->pos();
+
+    for (int i = 0; i < 9; ++i)
+    {
+        for (int j = 0; j < 9; ++j)
+        {
+            QPoint shiftBorders(bigRectFrame*(j/3+1), bigRectFrame*(i/3+1));
+            QPoint shiftFields(fieldWidth*j, fieldWidth*i);
+            QRect fieldRect(startingPoint + shiftBorders + shiftFields, QSize(fieldWidth, fieldWidth));
+
+            if (fieldRect.contains(mousePosition))
+            {
+                selectedRow = i;
+                selectedColumn = j;
+                repaint();
+                return;
+            }
+        }
+    }
+
+    selectedRow = -1;
+    selectedColumn = -1;
+    repaint();
 }
 
 QPoint SudokuBoardView::getBoardStartingPoint(const QRect &area)

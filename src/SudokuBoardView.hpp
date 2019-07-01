@@ -16,6 +16,7 @@ public:
 
 protected:
     virtual void keyPressEvent(QKeyEvent * event) override;
+    virtual void mousePressEvent(QMouseEvent * event) override;
 
 private:
     QPoint getBoardStartingPoint(const QRect & area);
@@ -30,6 +31,9 @@ private:
     SudokuBoard sudokuBoard;
     short selectedRow = 0;
     short selectedColumn = 0;
+
+    int fieldWidth;
+    QPoint startingPoint;
 };
 
 #endif // SUDOKUBOARDVIEW_HPP
