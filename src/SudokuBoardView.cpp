@@ -97,6 +97,8 @@ void SudokuBoardView::paintEvent(QPaintEvent *event)
             }
         }
     }
+
+    fieldWidth--;
 }
 
 void SudokuBoardView::keyPressEvent(QKeyEvent *event)
@@ -117,13 +119,13 @@ void SudokuBoardView::mousePressEvent(QMouseEvent *event)
 {
     auto mousePosition = event->pos();
 
-    for (int i = 0; i < 9; ++i)
+    for (short i = 0; i < 9; ++i)
     {
-        for (int j = 0; j < 9; ++j)
+        for (short j = 0; j < 9; ++j)
         {
-            QPoint shiftBorders(bigRectFrame*(j/3+1), bigRectFrame*(i/3+1));
+            QPoint shiftBorders(bigRectFrame*(j/3+1) + smallRectFrame*(j-j/3), bigRectFrame*(i/3+1) + smallRectFrame*(i-i/3));
             QPoint shiftFields(fieldWidth*j, fieldWidth*i);
-            QRect fieldRect(startingPoint + shiftBorders + shiftFields, QSize(fieldWidth, fieldWidth));
+            QRect fieldRect(startingPoint + shiftBorders + shiftFields - QPoint(1, 1), QSize(fieldWidth, fieldWidth));
 
             if (fieldRect.contains(mousePosition))
             {
