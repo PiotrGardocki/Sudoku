@@ -29,8 +29,8 @@ private:
     constexpr static short smallRectFrame = 1;
 
     SudokuBoard sudokuBoard;
-    short selectedRow = 0;
-    short selectedColumn = 0;
+    short selectedRow = -1;
+    short selectedColumn = -1;
 
     int fieldWidth;
     QPoint startingPoint;
