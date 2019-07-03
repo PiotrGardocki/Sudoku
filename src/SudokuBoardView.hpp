@@ -12,14 +12,16 @@ class SudokuBoardView : public QWidget
 public:
     SudokuBoardView(QWidget * parent = nullptr);
 
-    void paintEvent(QPaintEvent * event) override;
-
 protected:
+    void resizeEvent(QResizeEvent * event) override;
+    void paintEvent(QPaintEvent * event) override;
     virtual void keyPressEvent(QKeyEvent * event) override;
     virtual void mousePressEvent(QMouseEvent * event) override;
 
 private:
-    QPoint getBoardStartingPoint(const QRect & area);
+    void calculateFieldsSize(const QSize & newSize);
+    void calculateBoardStartingPoint();
+
     bool handleArrowKey(int key);
     bool handleNumberKey(int key);
     unsigned short getNumKeyValue(int key);

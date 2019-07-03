@@ -14,15 +14,14 @@ SudokuBoardView::SudokuBoardView(QWidget * parent)
     setFocusPolicy(Qt::StrongFocus);
 }
 
-void SudokuBoardView::paintEvent(QPaintEvent *event)
+void SudokuBoardView::resizeEvent(QResizeEvent *event)
 {
-    auto rect = event->rect();
-    fieldWidth = std::min(rect.width(), rect.height());
-    fieldWidth -= (4*bigRectFrame + 6*smallRectFrame);
-    fieldWidth /= 9;
+    calculateFieldsSize(event->size());
+    calculateBoardStartingPoint();
+}
 
-    startingPoint = getBoardStartingPoint(rect);
-
+void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
+{
     auto bigRectSize = bigRectFrame + 3*fieldWidth + 2*smallRectFrame;
     QRect bigRect(startingPoint, QSize(bigRectSize, bigRectSize));
 
@@ -142,22 +141,26 @@ void SudokuBoardView::mousePressEvent(QMouseEvent *event)
     repaint();
 }
 
-QPoint SudokuBoardView::getBoardStartingPoint(const QRect &area)
+void SudokuBoardView::calculateFieldsSize(const QSize & newSize)
 {
-    auto fieldWidth = std::min(area.width(), area.height());
-    auto linesWidth = (4*bigRectFrame + 6*smallRectFrame);
-    fieldWidth -= linesWidth;
+    fieldWidth = std::min(newSize.width(), newSize.height());
+    fieldWidth -= (4*bigRectFrame + 6*smallRectFrame);
     fieldWidth /= 9;
+}
 
+void SudokuBoardView::calculateBoardStartingPoint()
+{
+    auto area = contentsRect();
+
+    auto linesWidth = (4*bigRectFrame + 6*smallRectFrame);
     auto boardWidth = fieldWidth * 9 + linesWidth;
 
     auto leftMargin = (area.width() - boardWidth) / 2;
     auto topMargin = (area.height() - boardWidth) / 2;
 
     leftMargin += bigRectFrame / 2;
-    topMargin += smallRectFrame / 2;
-
-    return area.topLeft() + QPoint(leftMargin, topMargin);
+    topMargin += bigRectFrame / 2;
+    startingPoint =  area.topLeft() + QPoint(leftMargin, topMargin);
 }
 
 bool SudokuBoardView::handleArrowKey(int key)
