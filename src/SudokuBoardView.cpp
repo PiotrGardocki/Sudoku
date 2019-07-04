@@ -22,9 +22,9 @@ void SudokuBoardView::resizeEvent(QResizeEvent *event)
 
 void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
 {
-    auto boardleftMargin = bigRectFrame / 2;
+    auto boardLeftMargin = bigRectFrame / 2;
     auto boardTopMargin = bigRectFrame / 2;
-    auto bigRectStartingPoint = startingPoint + QPoint(boardleftMargin, boardTopMargin);
+    auto bigRectStartingPoint = startingPoint + QPoint(boardLeftMargin, boardTopMargin);
 
     auto bigRectSize = bigRectFrame + 3*fieldWidth + 2*smallRectFrame;
     QRect bigRect(bigRectStartingPoint, QSize(bigRectSize, bigRectSize));
