@@ -22,8 +22,12 @@ void SudokuBoardView::resizeEvent(QResizeEvent *event)
 
 void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
 {
+    auto boardleftMargin = bigRectFrame / 2;
+    auto boardTopMargin = bigRectFrame / 2;
+    auto bigRectStartingPoint = startingPoint + QPoint(boardleftMargin, boardTopMargin);
+
     auto bigRectSize = bigRectFrame + 3*fieldWidth + 2*smallRectFrame;
-    QRect bigRect(startingPoint, QSize(bigRectSize, bigRectSize));
+    QRect bigRect(bigRectStartingPoint, QSize(bigRectSize, bigRectSize));
 
     QPainter painter(this);
 
@@ -59,7 +63,7 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
     {
         for (int j = 0; j < 3; ++j)
         {
-            auto point = startingPoint + QPoint(i*bigRectSize, j*bigRectSize);
+            auto point = bigRectStartingPoint + QPoint(i*bigRectSize, j*bigRectSize);
             if (bigRectFrame % 2)
             {
                 point.rx() += bigRectFrame/2;
@@ -118,18 +122,18 @@ void SudokuBoardView::mousePressEvent(QMouseEvent *event)
 {
     auto mousePosition = event->pos();
 
-    for (short i = 0; i < 9; ++i)
+    for (short row = 0; row < 9; ++row)
     {
-        for (short j = 0; j < 9; ++j)
+        for (short column = 0; column < 9; ++column)
         {
-            QPoint shiftBorders(bigRectFrame*(j/3+1) + smallRectFrame*(j-j/3), bigRectFrame*(i/3+1) + smallRectFrame*(i-i/3));
-            QPoint shiftFields(fieldWidth*j, fieldWidth*i);
-            QRect fieldRect(startingPoint + shiftBorders + shiftFields - QPoint(1, 1), QSize(fieldWidth, fieldWidth));
+            QPoint shiftBorders(bigRectFrame*(column/3+1) + smallRectFrame*(column-column/3), bigRectFrame*(row/3+1) + smallRectFrame*(row-row/3));
+            QPoint shiftFields(fieldWidth*column, fieldWidth*row);
+            QRect fieldRect(startingPoint + shiftBorders + shiftFields, QSize(fieldWidth, fieldWidth));
 
             if (fieldRect.contains(mousePosition))
             {
-                selectedRow = i;
-                selectedColumn = j;
+                selectedRow = row;
+                selectedColumn = column;
                 repaint();
                 return;
             }
@@ -158,9 +162,7 @@ void SudokuBoardView::calculateBoardStartingPoint()
     auto leftMargin = (area.width() - boardWidth) / 2;
     auto topMargin = (area.height() - boardWidth) / 2;
 
-    leftMargin += bigRectFrame / 2;
-    topMargin += bigRectFrame / 2;
-    startingPoint =  area.topLeft() + QPoint(leftMargin, topMargin);
+    startingPoint = area.topLeft() + QPoint(leftMargin, topMargin);
 }
 
 bool SudokuBoardView::handleArrowKey(int key)
