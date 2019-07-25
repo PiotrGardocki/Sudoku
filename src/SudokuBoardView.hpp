@@ -12,6 +12,8 @@ class SudokuBoardView : public QWidget
 public:
     SudokuBoardView(QWidget * parent = nullptr);
 
+    void generateNewBoard();
+
 protected:
     void resizeEvent(QResizeEvent * event) override;
     void paintEvent(QPaintEvent * event) override;

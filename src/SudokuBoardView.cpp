@@ -10,8 +10,13 @@ SudokuBoardView::SudokuBoardView(QWidget * parent)
     : QWidget(parent)
 {
     setMinimumSize(400, 400);
-    sudokuBoard = SudokuBoard::generateBoard();
     setFocusPolicy(Qt::StrongFocus);
+    generateNewBoard();
+}
+
+void SudokuBoardView::generateNewBoard()
+{
+    sudokuBoard = SudokuBoard::generateBoard();
 }
 
 void SudokuBoardView::resizeEvent(QResizeEvent *event)
