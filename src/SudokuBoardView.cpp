@@ -27,48 +27,50 @@ void SudokuBoardView::resizeEvent(QResizeEvent *event)
 
 void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
 {
+    QPainter painter(this);
+
+    // big squares
+
     auto boardLeftMargin = bigRectFrame / 2;
     auto boardTopMargin = bigRectFrame / 2;
     auto bigRectStartingPoint = startingPoint + QPoint(boardLeftMargin, boardTopMargin);
 
-    auto bigRectSize = bigRectFrame + 3*fieldWidth + 2*smallRectFrame;
-    QRect bigRect(bigRectStartingPoint, QSize(bigRectSize, bigRectSize));
-
-    QPainter painter(this);
+    auto bigRectWidth = bigRectFrame + 2*smallRectFrame + 3*fieldWidth;
 
     QPen pen;
     pen.setWidth(bigRectFrame);
     pen.setColor(Qt::black);
     painter.setPen(pen);
 
-    for (int i = 0; i < 4; ++i)
+    for (int x = 0; x < 3; ++x)
     {
-        for (int j = 0; j < 4; ++j)
+        for (int y = 0; y < 3; ++y)
         {
-            auto innerRect = bigRect;
-            innerRect.setX(innerRect.x() + i*bigRectSize);
-            innerRect.setY(innerRect.y() + j*bigRectSize);
-            painter.drawRect(innerRect);
+            QRect bigRect(bigRectStartingPoint + QPoint(x * bigRectWidth, y * bigRectWidth),
+                          QSize(bigRectWidth, bigRectWidth));
+            painter.drawRect(bigRect);
         }
     }
+
+    // small squares
 
     pen.setWidth(smallRectFrame);
     painter.setPen(pen);
     QBrush brush(Qt::white);
     painter.setBrush(brush);
 
-    fieldWidth++;
-    QSize smallSize(fieldWidth, fieldWidth);
+    auto smallRectWidth = fieldWidth + 1;
+    QSize smallSize(smallRectWidth, smallRectWidth);
 
     auto font = painter.font();
-    font.setPixelSize(static_cast<int>(fieldWidth*0.8));
+    font.setPixelSize(static_cast<int>(smallRectWidth*0.8));
     painter.setFont(font);
 
     for (int i = 0; i < 3; ++i)
     {
         for (int j = 0; j < 3; ++j)
         {
-            auto point = bigRectStartingPoint + QPoint(i*bigRectSize, j*bigRectSize);
+            auto point = startingPoint + QPoint(bigRectFrame-1, bigRectFrame-1) + QPoint(i*bigRectWidth, j*bigRectWidth);
             if (bigRectFrame % 2)
             {
                 point.rx() += bigRectFrame/2;
@@ -84,7 +86,7 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
             {
                 for (int g = 0; g < 3; ++g)
                 {
-                    auto newPoint = point + QPoint(k*fieldWidth, g*fieldWidth);
+                    auto newPoint = point + QPoint(k*smallRectWidth, g*smallRectWidth);
                     QRect r(newPoint, smallSize);
                     painter.drawRect(r);
 
@@ -105,8 +107,6 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
             }
         }
     }
-
-    fieldWidth--;
 }
 
 void SudokuBoardView::keyPressEvent(QKeyEvent *event)
