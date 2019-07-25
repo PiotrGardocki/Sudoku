@@ -97,7 +97,7 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
                     {
                         QRect fillRect = r;
                         fillRect -= QMargins(1, 1, 0, 0);
-                        painter.fillRect(fillRect, Qt::blue);
+                        painter.fillRect(fillRect, QColor::fromRgb(161, 224, 227));
                     }
 
                     painter.drawText(r, Qt::AlignCenter, QString::fromStdString(text));
