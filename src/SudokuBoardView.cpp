@@ -115,8 +115,8 @@ void SudokuBoardView::keyPressEvent(QKeyEvent *event)
     if (selectedRow == -1 || selectedColumn == -1)
         return;
 
-//    if (event->isAutoRepeat())
-//        return;
+    if (event->isAutoRepeat())
+        return;
 
     auto key = event->key();
 
