@@ -43,6 +43,18 @@ bool SudokuBoard::isFieldEmpty(SudokuIndex index) const
     return getNumber(index) == 0;
 }
 
+void SudokuBoard::hideFields(float percentage)
+{
+    if (percentage < 0.f || percentage > 100.f)
+        throw std::runtime_error(std::string("Percentage has to be in range [0,100], given: ") + std::to_string(percentage));
+
+    RandomIntegerGenerator<int> condition(0, 1);
+
+    for (auto& number : numbers)
+        if (condition())
+            number = 0;
+}
+
 namespace
 {
     struct BigSquare

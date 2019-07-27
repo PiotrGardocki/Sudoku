@@ -17,6 +17,8 @@ public:
     void setFieldAsEmpty(SudokuIndex index);
     bool isFieldEmpty(SudokuIndex index) const;
 
+    void hideFields(float percentage);
+
     bool doesFieldCollide(SudokuIndex index) const;
 
     static SudokuBoard generateBoard();
