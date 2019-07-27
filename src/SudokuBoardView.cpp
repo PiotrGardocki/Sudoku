@@ -30,69 +30,70 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
 {
     QPainter painter(this);
 
-    // big squares
+    const auto boardLeftMargin = bigRectFrame / 2;
+    const auto boardTopMargin = bigRectFrame / 2;
+    const auto bigRectStartingPoint = startingPoint + QPoint(boardLeftMargin, boardTopMargin);
 
-    auto boardLeftMargin = bigRectFrame / 2;
-    auto boardTopMargin = bigRectFrame / 2;
-    auto bigRectStartingPoint = startingPoint + QPoint(boardLeftMargin, boardTopMargin);
+    const auto bigRectWidth = bigRectFrame + 2 * smallRectFrame + 3 * fieldWidth;
 
-    auto bigRectWidth = bigRectFrame + 2*smallRectFrame + 3*fieldWidth;
-
-    QPen pen;
-    pen.setWidth(bigRectFrame);
-    pen.setColor(Qt::black);
-    painter.setPen(pen);
-
-    for (int x = 0; x < 3; ++x)
-    {
-        for (int y = 0; y < 3; ++y)
-        {
-            QRect bigRect(bigRectStartingPoint + QPoint(x * bigRectWidth, y * bigRectWidth),
-                          QSize(bigRectWidth, bigRectWidth));
-            painter.drawRect(bigRect);
-        }
-    }
-
-    // small squares
-
-    pen.setWidth(smallRectFrame);
-    painter.setPen(pen);
-    QBrush brush(Qt::white);
-    painter.setBrush(brush);
-
-    auto smallRectWidth = fieldWidth + 1;
-    QSize smallSize(smallRectWidth, smallRectWidth);
+    const auto smallRectWidth = fieldWidth + 1;
+    const QSize smallSize(smallRectWidth, smallRectWidth);
 
     auto font = painter.font();
     font.setPixelSize(static_cast<int>(smallRectWidth*0.8));
     painter.setFont(font);
 
-    for (int i = 0; i < 3; ++i)
+    QPen bigRectPen;
+    bigRectPen.setWidth(bigRectFrame);
+    bigRectPen.setColor(Qt::black);
+
+    QPen smallRectPen;
+    smallRectPen.setWidth(smallRectFrame);
+    smallRectPen.setColor(Qt::black);
+
+    QBrush brush(Qt::white);
+    painter.setBrush(brush);
+
+    // -------------------------------------
+
+    for (int x = 0; x < 3; ++x)
     {
-        for (int j = 0; j < 3; ++j)
+        for (int y = 0; y < 3; ++y)
         {
-            auto point = startingPoint + QPoint(bigRectFrame-1, bigRectFrame-1) + QPoint(i*bigRectWidth, j*bigRectWidth);
+            // big squares
+
+            painter.setPen(bigRectPen);
+
+            QRect bigRect(bigRectStartingPoint + QPoint(x * bigRectWidth, y * bigRectWidth),
+                          QSize(bigRectWidth, bigRectWidth));
+            painter.drawRect(bigRect);
+
+            // small squares
+
+            painter.setPen(smallRectPen);
+
+            auto point = startingPoint + QPoint(bigRectFrame - 1, bigRectFrame - 1) + QPoint(x * bigRectWidth, y * bigRectWidth);
             if (bigRectFrame % 2)
             {
-                point.rx() += bigRectFrame/2;
-                point.ry() += bigRectFrame/2;
+                point.rx() += bigRectFrame / 2;
+                point.ry() += bigRectFrame / 2;
             }
             else
             {
-                point.rx() += bigRectFrame/2 - 1;
-                point.ry() += bigRectFrame/2 - 1;
+                point.rx() += bigRectFrame / 2 - 1;
+                point.ry() += bigRectFrame / 2 - 1;
             }
 
             for (int k = 0; k < 3; ++k)
             {
                 for (int g = 0; g < 3; ++g)
                 {
-                    auto newPoint = point + QPoint(k*smallRectWidth, g*smallRectWidth);
+                    auto newPoint = point + QPoint(k * smallRectWidth, g * smallRectWidth);
                     QRect r(newPoint, smallSize);
                     painter.drawRect(r);
 
-                    auto row = j*3+g;
-                    auto column = i*3+k;
+                    auto row = y * 3 + g;
+                    auto column = x * 3 + k;
                     SudokuIndex index(static_cast<unsigned short>(row), static_cast<unsigned short>(column));
                     auto text = sudokuBoard.getFieldAsString(index);
 
