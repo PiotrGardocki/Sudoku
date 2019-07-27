@@ -17,6 +17,7 @@ SudokuBoardView::SudokuBoardView(QWidget * parent)
 void SudokuBoardView::generateNewBoard()
 {
     sudokuBoard = SudokuBoard::generateBoard();
+    repaint();
 }
 
 void SudokuBoardView::resizeEvent(QResizeEvent *event)
