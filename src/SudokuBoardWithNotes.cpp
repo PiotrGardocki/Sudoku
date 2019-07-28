@@ -13,17 +13,20 @@ SudokuBoardWithNotes::SudokuBoardWithNotes(SudokuBoard && board)
 SudokuBoardWithNotes &SudokuBoardWithNotes::operator=(const SudokuBoard & board)
 {
     SudokuBoard::operator=(board);
+    notedNumbers.reset();
     return *this;
 }
 
 SudokuBoardWithNotes &SudokuBoardWithNotes::operator=(SudokuBoard && board)
 {
     SudokuBoard::operator=(board);
+    notedNumbers.reset();
     return *this;
 }
 
 void SudokuBoardWithNotes::noteNumber(SudokuIndex index, unsigned short number)
 {
+    SudokuBoard::clearField(index);
     std::size_t internalIndex = getStartInternalIndex(index) + number - 1;
     notedNumbers.set(internalIndex);
 }
