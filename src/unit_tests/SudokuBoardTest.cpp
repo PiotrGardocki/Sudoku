@@ -36,7 +36,7 @@ TEST_CASE("SudokuBoard - empty fields", "[core][sudoku]")
 
     CHECK(!board.isFieldEmpty(index));
 
-    board.setFieldAsEmpty(index);
+    board.clearField(index);
 
     SECTION("Check if fields after setting are empty")
     {
