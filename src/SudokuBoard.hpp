@@ -14,7 +14,7 @@ public:
     unsigned short getNumber(SudokuIndex index) const;
     std::string getFieldAsString(SudokuIndex index) const;
     void setNumber(SudokuIndex index, unsigned short number);
-    void setFieldAsEmpty(SudokuIndex index);
+    void clearField(SudokuIndex index);
     bool isFieldEmpty(SudokuIndex index) const;
 
     void hideFields(float percentage);

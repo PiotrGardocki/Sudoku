@@ -31,7 +31,7 @@ void SudokuBoard::setNumber(SudokuIndex index, unsigned short number)
     numbers[toInternalIndex(index)] = number;
 }
 
-void SudokuBoard::setFieldAsEmpty(SudokuIndex index)
+void SudokuBoard::clearField(SudokuIndex index)
 {
     // empty field has value 0
     numbers[toInternalIndex(index)] = 0;
@@ -221,7 +221,7 @@ SudokuBoard SudokuBoard::generateBoard()
         }
         else
         {
-            board.setFieldAsEmpty(index);
+            board.clearField(index);
             currentField = allNumbers;
             previousIndex(index);
         }
