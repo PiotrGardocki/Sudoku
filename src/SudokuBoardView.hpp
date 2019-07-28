@@ -10,7 +10,7 @@ class SudokuBoardView : public QWidget
     Q_OBJECT
 
 public:
-    SudokuBoardView(QWidget * parent = nullptr);
+    explicit SudokuBoardView(QWidget * parent = nullptr);
 
 public slots:
     void generateNewBoard();
