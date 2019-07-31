@@ -84,8 +84,11 @@ bool SudokuBoardWithNotes::isFieldNoted(const SudokuIndex &index) const
     std::size_t internalIndex = getStartInternalIndex(index);
 
     for (std::size_t i = 0; i < 9; ++i)
+    {
         if (notedNumbers.test(internalIndex))
             return false;
+        ++internalIndex;
+    }
 
     return true;
 }
