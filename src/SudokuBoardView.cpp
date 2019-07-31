@@ -95,16 +95,42 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
                     auto row = y * 3 + g;
                     auto column = x * 3 + k;
                     SudokuIndex index(static_cast<unsigned short>(row), static_cast<unsigned short>(column));
-                    auto text = sudokuBoard.getFieldAsString(index);
 
                     if (row == selectedRow && column == selectedColumn)
                     {
                         QRect fillRect = r;
                         fillRect -= QMargins(1, 1, 0, 0);
-                        painter.fillRect(fillRect, QColor::fromRgb(161, 224, 227));
+
+                        if (!notingMode)
+                            painter.fillRect(fillRect, QColor::fromRgb(161, 224, 227));
+                        else
+                            painter.fillRect(fillRect, Qt::blue);
                     }
 
-                    painter.drawText(r, Qt::AlignCenter, QString::fromStdString(text));
+                    if (!sudokuBoard.isFieldInNotedMode(index))
+                    {
+                        auto text = sudokuBoard.getFieldAsString(index);
+                        painter.drawText(r, Qt::AlignCenter, QString::fromStdString(text));
+                    }
+                    else
+                    {
+                        auto numbers = sudokuBoard.getNotedNumbers(index);
+                        auto miniSize = smallSize / 3;
+
+                        for (std::size_t i = 0; i < 9; ++i)
+                        {
+                            if (numbers.test(i))
+                            {
+                                QRect miniRect(newPoint + QPoint((i % 3) * miniSize.width(), (i / 3) * miniSize.width()), miniSize);
+
+                                auto miniFont = font;
+                                miniFont.setPixelSize(static_cast<int>(smallRectWidth * 0.25));
+                                painter.setFont(miniFont);
+                                painter.drawText(miniRect, Qt::AlignCenter, QString::number(i+1));
+                                painter.setFont(font);
+                            }
+                        }
+                    }
                 }
             }
         }
