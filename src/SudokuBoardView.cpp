@@ -113,6 +113,13 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
 
 void SudokuBoardView::keyPressEvent(QKeyEvent *event)
 {
+    if (event->key() == Qt::Key::Key_Shift)
+    {
+        //sudokuBoard.hideFields(50.f);
+        notingMode = !notingMode;
+        repaint();
+    }
+
     if (selectedRow == -1 || selectedColumn == -1)
         return;
 
