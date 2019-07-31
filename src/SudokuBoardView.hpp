@@ -1,7 +1,7 @@
 #ifndef SUDOKUBOARDVIEW_HPP
 #define SUDOKUBOARDVIEW_HPP
 
-#include "SudokuBoard.hpp"
+#include "SudokuBoardWithNotes.hpp"
 
 #include <QWidget>
 
@@ -33,12 +33,14 @@ private:
     constexpr static short bigRectFrame = 2;
     constexpr static short smallRectFrame = 1;
 
-    SudokuBoard sudokuBoard;
+    SudokuBoardWithNotes sudokuBoard;
     short selectedRow = -1;
     short selectedColumn = -1;
 
     int fieldWidth;
     QPoint startingPoint;
+
+    bool notingMode = false;
 };
 
 #endif // SUDOKUBOARDVIEW_HPP
