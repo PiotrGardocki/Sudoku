@@ -213,8 +213,11 @@ bool SudokuBoardView::handleNumberKey(int key)
 
     if (keyValue != 0)
     {
-        sudokuBoard.setNumber(SudokuIndex(static_cast<unsigned short>(selectedRow), static_cast<unsigned short>(selectedColumn)),
-                              keyValue);
+        SudokuIndex index(static_cast<unsigned short>(selectedRow), static_cast<unsigned short>(selectedColumn));
+        if (notingMode)
+            sudokuBoard.noteNumber(index, keyValue);
+        else
+            sudokuBoard.setNumber(index, keyValue);
         repaint();
         return true;
     }
