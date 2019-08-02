@@ -17,6 +17,7 @@ SudokuBoardView::SudokuBoardView(QWidget * parent)
 void SudokuBoardView::generateNewBoard()
 {
     sudokuBoard = SudokuBoard::generateBoard();
+    hideFieldsInBoard(20.f);
     repaint();
 }
 
@@ -205,6 +206,17 @@ void SudokuBoardView::calculateBoardStartingPoint()
     startingPoint = area.topLeft() + QPoint(leftMargin, topMargin);
 }
 
+void SudokuBoardView::hideFieldsInBoard(float percentage)
+{
+    sudokuBoard.hideFields(percentage);
+    blockedFields.reset();
+
+    for (unsigned short row = 0; row < 9; ++row)
+        for (unsigned short column = 0; column < 9; ++column)
+            if (sudokuBoard.getNumber({row, column}) != 0)
+                blockedFields.set(row * 9 + column);
+}
+
 bool SudokuBoardView::handleArrowKey(int key)
 {
     switch (key)
@@ -235,6 +247,9 @@ bool SudokuBoardView::handleArrowKey(int key)
 
 bool SudokuBoardView::handleNumberKey(int key)
 {
+    if (blockedFields.test(selectedRow * 9 + selectedColumn))
+        return false;
+
     auto keyValue = getNumKeyValue(key);
 
     if (keyValue != 0)
