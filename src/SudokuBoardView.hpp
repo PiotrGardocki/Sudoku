@@ -25,6 +25,8 @@ private:
     void calculateFieldsSize(const QSize & newSize);
     void calculateBoardStartingPoint();
 
+    void hideFieldsInBoard(float percentage);
+
     bool handleArrowKey(int key);
     bool handleNumberKey(int key);
     unsigned short getNumKeyValue(int key);
@@ -34,6 +36,7 @@ private:
     constexpr static short smallRectFrame = 1;
 
     SudokuBoardWithNotes sudokuBoard;
+    std::bitset<81> blockedFields;
     short selectedRow = -1;
     short selectedColumn = -1;
 
