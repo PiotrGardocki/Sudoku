@@ -44,6 +44,9 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
     font.setPixelSize(static_cast<int>(smallRectWidth*0.8));
     painter.setFont(font);
 
+    QBrush brush(Qt::white);
+    painter.setBrush(brush);
+
     QPen bigRectPen;
     bigRectPen.setWidth(bigRectFrame);
     bigRectPen.setColor(Qt::black);
@@ -51,9 +54,6 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
     QPen smallRectPen;
     smallRectPen.setWidth(smallRectFrame);
     smallRectPen.setColor(Qt::black);
-
-    QBrush brush(Qt::white);
-    painter.setBrush(brush);
 
     // -------------------------------------
 
@@ -97,11 +97,15 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
                     auto column = x * 3 + k;
                     SudokuIndex index(static_cast<unsigned short>(row), static_cast<unsigned short>(column));
 
-                    if (row == selectedRow && column == selectedColumn)
-                    {
-                        QRect fillRect = r;
-                        fillRect -= QMargins(1, 1, 0, 0);
+                    QRect fillRect = r;
+                    fillRect -= QMargins(1, 1, 0, 0);
 
+                    if (blockedFields.test(row * 9 + column))
+                    {
+                        painter.fillRect(fillRect, QColor::fromRgb(220, 220, 220));
+                    }
+                    else if (row == selectedRow && column == selectedColumn)
+                    {
                         if (!notingMode)
                             painter.fillRect(fillRect, QColor::fromRgb(161, 224, 227));
                         else
