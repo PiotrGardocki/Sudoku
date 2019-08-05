@@ -17,6 +17,7 @@ public:
     SudokuBoardWithNotes& operator=(SudokuBoard && board);
 
     void noteNumber(SudokuIndex index, unsigned short number);
+    void clearNote(SudokuIndex index, unsigned short number);
     std::bitset<9> getNotedNumbers(SudokuIndex index) const;
 
     void setNumber(SudokuIndex index, unsigned short number);
