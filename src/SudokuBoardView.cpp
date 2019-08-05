@@ -38,11 +38,15 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
     const auto bigRectWidth = bigRectFrame + 2 * smallRectFrame + 3 * fieldWidth;
 
     const auto smallRectWidth = fieldWidth + 1;
-    const QSize smallSize(smallRectWidth, smallRectWidth);
+    const QSize smallRectSize(smallRectWidth, smallRectWidth);
+    const auto miniRectSize = smallRectSize / 3;
 
     auto font = painter.font();
     font.setPixelSize(static_cast<int>(smallRectWidth*0.8));
     painter.setFont(font);
+
+    auto miniFont = font;
+    miniFont.setPixelSize(static_cast<int>(smallRectWidth * 0.25));
 
     QBrush brush(Qt::white);
     painter.setBrush(brush);
@@ -84,47 +88,31 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
             {
                 for (int g = 0; g < 3; ++g)
                 {
-                    auto newPoint = point + QPoint(k * smallRectWidth, g * smallRectWidth);
-                    QRect r(newPoint, smallSize);
-                    painter.drawRect(r);
+                    auto smallRectStartPoint = point + QPoint(k * smallRectWidth, g * smallRectWidth);
+                    QRect rect(smallRectStartPoint, smallRectSize);
+                    painter.drawRect(rect);
 
                     auto row = y * 3 + g;
                     auto column = x * 3 + k;
                     SudokuIndex index(static_cast<unsigned short>(row), static_cast<unsigned short>(column));
 
-                    QRect fillRect = r;
-                    fillRect -= QMargins(1, 1, 0, 0);
-
-                    if (blockedFields.test(static_cast<size_t>(row * 9 + column)))
-                    {
-                        painter.fillRect(fillRect, QColor::fromRgb(220, 220, 220));
-                    }
-                    else if (row == selectedRow && column == selectedColumn)
-                    {
-                        if (!notingMode)
-                            painter.fillRect(fillRect, QColor::fromRgb(161, 224, 227));
-                        else
-                            painter.fillRect(fillRect, Qt::blue);
-                    }
+                    drawBackgroundInSmallSquare(painter, rect, row, column);
 
                     if (!sudokuBoard.isFieldInNotedMode(index))
                     {
                         auto text = sudokuBoard.getFieldAsString(index);
-                        painter.drawText(r, Qt::AlignCenter, QString::fromStdString(text));
+                        painter.drawText(rect, Qt::AlignCenter, QString::fromStdString(text));
                     }
                     else
                     {
                         auto numbers = sudokuBoard.getNotedNumbers(index);
-                        auto miniSize = smallSize / 3;
 
                         for (std::size_t i = 0; i < 9; ++i)
                         {
                             if (numbers.test(i))
                             {
-                                QRect miniRect(newPoint + QPoint(static_cast<int>(i % 3) * miniSize.width(), static_cast<int>(i / 3) * miniSize.width()), miniSize);
+                                QRect miniRect(smallRectStartPoint + QPoint(static_cast<int>(i % 3) * miniRectSize.width(), static_cast<int>(i / 3) * miniRectSize.width()), miniRectSize);
 
-                                auto miniFont = font;
-                                miniFont.setPixelSize(static_cast<int>(smallRectWidth * 0.25));
                                 painter.setFont(miniFont);
                                 painter.drawText(miniRect, Qt::AlignCenter, QString::number(i+1));
                                 painter.setFont(font);
@@ -195,6 +183,23 @@ void SudokuBoardView::drawBigSquares(QPainter & painter, const QPoint & startPoi
                           QSize(width, width));
             painter.drawRect(bigRect);
         }
+    }
+}
+
+void SudokuBoardView::drawBackgroundInSmallSquare(QPainter &painter, QRect rect, int row, int column)
+{
+    rect -= QMargins(1, 1, 0, 0);
+
+    if (blockedFields.test(static_cast<size_t>(row * 9 + column)))
+    {
+        painter.fillRect(rect, QColor::fromRgb(220, 220, 220));
+    }
+    else if (row == selectedRow && column == selectedColumn)
+    {
+        if (!notingMode)
+            painter.fillRect(rect, QColor::fromRgb(161, 224, 227));
+        else
+            painter.fillRect(rect, Qt::blue);
     }
 }
 

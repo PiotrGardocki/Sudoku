@@ -23,6 +23,8 @@ protected:
 
 private:
     void drawBigSquares(QPainter & painter, const QPoint & startPoint, int width);
+    void drawBackgroundInSmallSquare(QPainter & painter, QRect rect, int row, int column);
+
     void calculateFieldsSize(const QSize & newSize);
     void calculateBoardStartingPoint();
 
