@@ -23,7 +23,7 @@ protected:
 
 private:
     void drawBigSquares(QPainter & painter, const QPoint & startPoint, int width);
-    void drawBackgroundInSmallSquare(QPainter & painter, QRect rect, int row, int column);
+    void drawBackgroundInSmallSquare(QPainter & painter, QRect rect, const SudokuIndex & index);
 
     void calculateFieldsSize(const QSize & newSize);
     void calculateBoardStartingPoint();

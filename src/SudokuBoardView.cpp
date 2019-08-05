@@ -96,7 +96,6 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
                     auto column = x * 3 + k;
                     SudokuIndex index(static_cast<unsigned short>(row), static_cast<unsigned short>(column));
 
-                    drawBackgroundInSmallSquare(painter, rect, row, column);
 
                     if (!sudokuBoard.isFieldInNotedMode(index))
                     {
@@ -119,6 +118,7 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
                             }
                         }
                     }
+                    drawBackgroundInSmallSquare(painter, rect, index);
                 }
             }
         }
@@ -186,15 +186,15 @@ void SudokuBoardView::drawBigSquares(QPainter & painter, const QPoint & startPoi
     }
 }
 
-void SudokuBoardView::drawBackgroundInSmallSquare(QPainter &painter, QRect rect, int row, int column)
+void SudokuBoardView::drawBackgroundInSmallSquare(QPainter &painter, QRect rect, const SudokuIndex & index)
 {
     rect -= QMargins(1, 1, 0, 0);
 
-    if (blockedFields.test(static_cast<size_t>(row * 9 + column)))
+    if (blockedFields.test(static_cast<size_t>(index.getRow() * 9 + index.getColumn())))
     {
         painter.fillRect(rect, QColor::fromRgb(220, 220, 220));
     }
-    else if (row == selectedRow && column == selectedColumn)
+    else if (index.getRow() == selectedRow && index.getColumn() == selectedColumn)
     {
         if (!notingMode)
             painter.fillRect(rect, QColor::fromRgb(161, 224, 227));
