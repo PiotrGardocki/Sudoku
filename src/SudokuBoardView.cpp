@@ -57,22 +57,17 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
 
     // -------------------------------------
 
+    // big squares
+    painter.setPen(bigRectPen);
+    drawBigSquares(painter, bigRectStartingPoint, bigRectWidth);
+
+    // small squares
+    painter.setPen(smallRectPen);
+
     for (int x = 0; x < 3; ++x)
     {
         for (int y = 0; y < 3; ++y)
         {
-            // big squares
-
-            painter.setPen(bigRectPen);
-
-            QRect bigRect(bigRectStartingPoint + QPoint(x * bigRectWidth, y * bigRectWidth),
-                          QSize(bigRectWidth, bigRectWidth));
-            painter.drawRect(bigRect);
-
-            // small squares
-
-            painter.setPen(smallRectPen);
-
             auto point = startingPoint + QPoint(bigRectFrame - 1, bigRectFrame - 1) + QPoint(x * bigRectWidth, y * bigRectWidth);
             if (bigRectFrame % 2)
             {
@@ -188,6 +183,19 @@ void SudokuBoardView::mousePressEvent(QMouseEvent *event)
     selectedRow = -1;
     selectedColumn = -1;
     repaint();
+}
+
+void SudokuBoardView::drawBigSquares(QPainter & painter, const QPoint & startPoint, int width)
+{
+    for (int x = 0; x < 3; ++x)
+    {
+        for (int y = 0; y < 3; ++y)
+        {
+            QRect bigRect(startPoint + QPoint(x * width, y * width),
+                          QSize(width, width));
+            painter.drawRect(bigRect);
+        }
+    }
 }
 
 void SudokuBoardView::calculateFieldsSize(const QSize & newSize)

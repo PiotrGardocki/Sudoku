@@ -22,6 +22,7 @@ protected:
     virtual void mousePressEvent(QMouseEvent * event) override;
 
 private:
+    void drawBigSquares(QPainter & painter, const QPoint & startPoint, int width);
     void calculateFieldsSize(const QSize & newSize);
     void calculateBoardStartingPoint();
 
