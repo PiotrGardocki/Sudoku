@@ -96,29 +96,8 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
                     auto column = x * 3 + k;
                     SudokuIndex index(static_cast<unsigned short>(row), static_cast<unsigned short>(column));
 
-
-                    if (!sudokuBoard.isFieldInNotedMode(index))
-                    {
-                        auto text = sudokuBoard.getFieldAsString(index);
-                        painter.drawText(rect, Qt::AlignCenter, QString::fromStdString(text));
-                    }
-                    else
-                    {
-                        auto numbers = sudokuBoard.getNotedNumbers(index);
-
-                        for (std::size_t i = 0; i < 9; ++i)
-                        {
-                            if (numbers.test(i))
-                            {
-                                QRect miniRect(smallRectStartPoint + QPoint(static_cast<int>(i % 3) * miniRectSize.width(), static_cast<int>(i / 3) * miniRectSize.width()), miniRectSize);
-
-                                painter.setFont(miniFont);
-                                painter.drawText(miniRect, Qt::AlignCenter, QString::number(i+1));
-                                painter.setFont(font);
-                            }
-                        }
-                    }
                     drawBackgroundInSmallSquare(painter, rect, index);
+                    drawTextInSmallSquare(painter, index, rect, smallRectStartPoint, miniRectSize, font, miniFont);
                 }
             }
         }
@@ -200,6 +179,32 @@ void SudokuBoardView::drawBackgroundInSmallSquare(QPainter &painter, QRect rect,
             painter.fillRect(rect, QColor::fromRgb(161, 224, 227));
         else
             painter.fillRect(rect, Qt::blue);
+    }
+}
+
+void SudokuBoardView::drawTextInSmallSquare(QPainter & painter, const SudokuIndex & index, const QRect & rect, const QPoint & rectStartPoint, const QSize & miniRectSize,
+                                            const QFont & normalFont, const QFont & miniFont)
+{
+    if (!sudokuBoard.isFieldInNotedMode(index))
+    {
+        auto text = sudokuBoard.getFieldAsString(index);
+        painter.drawText(rect, Qt::AlignCenter, QString::fromStdString(text));
+    }
+    else
+    {
+        auto numbers = sudokuBoard.getNotedNumbers(index);
+
+        for (std::size_t i = 0; i < 9; ++i)
+        {
+            if (numbers.test(i))
+            {
+                QRect miniRect(rectStartPoint + QPoint(static_cast<int>(i % 3) * miniRectSize.width(), static_cast<int>(i / 3) * miniRectSize.width()), miniRectSize);
+
+                painter.setFont(miniFont);
+                painter.drawText(miniRect, Qt::AlignCenter, QString::number(i+1));
+                painter.setFont(normalFont);
+            }
+        }
     }
 }
 

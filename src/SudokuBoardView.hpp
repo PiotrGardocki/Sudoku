@@ -24,6 +24,8 @@ protected:
 private:
     void drawBigSquares(QPainter & painter, const QPoint & startPoint, int width);
     void drawBackgroundInSmallSquare(QPainter & painter, QRect rect, const SudokuIndex & index);
+    void drawTextInSmallSquare(QPainter & painter, const SudokuIndex & index, const QRect & rect, const QPoint & rectStartPoint, const QSize & miniRectSize,
+                               const QFont & normalFont, const QFont & miniFont);
 
     void calculateFieldsSize(const QSize & newSize);
     void calculateBoardStartingPoint();
