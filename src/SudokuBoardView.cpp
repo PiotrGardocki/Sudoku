@@ -100,7 +100,7 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
                     QRect fillRect = r;
                     fillRect -= QMargins(1, 1, 0, 0);
 
-                    if (blockedFields.test(row * 9 + column))
+                    if (blockedFields.test(static_cast<size_t>(row * 9 + column)))
                     {
                         painter.fillRect(fillRect, QColor::fromRgb(220, 220, 220));
                     }
@@ -126,7 +126,7 @@ void SudokuBoardView::paintEvent(QPaintEvent * /*event*/)
                         {
                             if (numbers.test(i))
                             {
-                                QRect miniRect(newPoint + QPoint((i % 3) * miniSize.width(), (i / 3) * miniSize.width()), miniSize);
+                                QRect miniRect(newPoint + QPoint(static_cast<int>(i % 3) * miniSize.width(), static_cast<int>(i / 3) * miniSize.width()), miniSize);
 
                                 auto miniFont = font;
                                 miniFont.setPixelSize(static_cast<int>(smallRectWidth * 0.25));
@@ -251,7 +251,7 @@ bool SudokuBoardView::handleArrowKey(int key)
 
 bool SudokuBoardView::handleNumberKey(int key)
 {
-    if (blockedFields.test(selectedRow * 9 + selectedColumn))
+    if (blockedFields.test(static_cast<size_t>(selectedRow * 9 + selectedColumn)))
         return false;
 
     auto keyValue = getNumKeyValue(key);
