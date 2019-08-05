@@ -221,6 +221,24 @@ void SudokuBoardView::hideFieldsInBoard(float percentage)
                 blockedFields.set(row * 9 + column);
 }
 
+void SudokuBoardView::flipNumberInField(const SudokuIndex & index, unsigned short number)
+{
+    if (notingMode)
+    {
+        if (sudokuBoard.getNotedNumbers(index).test(number - 1))
+            sudokuBoard.clearNote(index, number);
+        else
+            sudokuBoard.noteNumber(index, number);
+    }
+    else
+    {
+        if (sudokuBoard.getNumber(index) == number)
+            sudokuBoard.clearField(index);
+        else
+            sudokuBoard.setNumber(index, number);
+    }
+}
+
 bool SudokuBoardView::handleArrowKey(int key)
 {
     switch (key)
@@ -259,10 +277,7 @@ bool SudokuBoardView::handleNumberKey(int key)
     if (keyValue != 0)
     {
         SudokuIndex index(static_cast<unsigned short>(selectedRow), static_cast<unsigned short>(selectedColumn));
-        if (notingMode)
-            sudokuBoard.noteNumber(index, keyValue);
-        else
-            sudokuBoard.setNumber(index, keyValue);
+        flipNumberInField(index, keyValue);
         repaint();
         return true;
     }

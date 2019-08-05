@@ -26,6 +26,7 @@ private:
     void calculateBoardStartingPoint();
 
     void hideFieldsInBoard(float percentage);
+    void flipNumberInField(const SudokuIndex & index, unsigned short number);
 
     bool handleArrowKey(int key);
     bool handleNumberKey(int key);
