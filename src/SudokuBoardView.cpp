@@ -18,6 +18,8 @@ void SudokuBoardView::generateNewBoard()
 {
     sudokuBoard = SudokuBoard::generateBoard();
     hideFieldsInBoard(20.f);
+    selectedRow = -1;
+    selectedColumn = -1;
     repaint();
 }
 
