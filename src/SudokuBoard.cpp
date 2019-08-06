@@ -144,6 +144,69 @@ bool SudokuBoard::doesFieldCollide(SudokuIndex index) const
     return false;
 }
 
+bool SudokuBoard::isSolved() const
+{
+    for (const auto& number : numbers)
+        if (number < 1 || number > 9)
+            return false;
+
+    const std::vector<unsigned short> defaultNumCounter(9, 0);
+
+    // counting numbers in columns
+    for (unsigned short column = 0; column < 9; ++column)
+    {
+        auto numCounter = defaultNumCounter;
+        for (unsigned short row = 0; row < 9; ++row)
+        {
+            auto number = numbers.at(toInternalIndex({row, column}));
+            numCounter.at(number - 1)++;
+        }
+
+        for (const auto& count : numCounter)
+            if (count != 1)
+                return false;
+    }
+
+    // counting numbers in rows
+    for (unsigned short row = 0; row < 9; ++row)
+    {
+        auto numCounter = defaultNumCounter;
+        for (unsigned short column = 0; column < 9; ++column)
+        {
+            auto number = numbers.at(toInternalIndex({row, column}));
+            numCounter.at(number - 1)++;
+        }
+
+        for (const auto& count : numCounter)
+            if (count != 1)
+                return false;
+    }
+
+    // counting numbers in big squares
+    std::vector<BigSquare> bigSquares;
+    for (unsigned short row = 0; row < 9; row += 3)
+        for (unsigned short col = 0; col < 9; col += 3)
+            bigSquares.push_back(getBigSquare({row, col}));
+
+    for (const auto& square : bigSquares)
+    {
+        auto numCounter = defaultNumCounter;
+
+        for (unsigned short row = square.rowStart; row <= square.rowEnd; ++row)
+            for (unsigned short col = square.columnStart; col <= square.columnEnd; ++col)
+            {
+                auto number = numbers.at(toInternalIndex({row, col}));
+                numCounter.at(number - 1)++;
+            }
+
+        for (const auto& count : numCounter)
+            if (count != 1)
+                return false;
+    }
+
+    return true;
+}
+
 namespace
 {
     bool previousIndex(SudokuIndex & index)

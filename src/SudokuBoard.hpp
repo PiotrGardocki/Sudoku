@@ -20,6 +20,7 @@ public:
     void hideFields(float percentage);
 
     bool doesFieldCollide(SudokuIndex index) const;
+    bool isSolved() const;
 
     static SudokuBoard generateBoard();
 
