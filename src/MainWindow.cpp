@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget * parent)
     QPushButton * clearButton = new QPushButton;
     bottomButtons->addWidget(clearButton);
     clearButton->setText("Clear");
+    connect(clearButton, &QPushButton::clicked, view, &SudokuBoardView::clearCurrentField);
 
     QPushButton * penButton = new QPushButton;
     bottomButtons->addWidget(penButton);

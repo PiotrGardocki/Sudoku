@@ -23,6 +23,16 @@ void SudokuBoardView::generateNewBoard()
     repaint();
 }
 
+void SudokuBoardView::clearCurrentField()
+{
+    if (selectedRow != -1 && selectedColumn != -1 && !blockedFields.test(static_cast<size_t>(selectedRow * 9 + selectedColumn)))
+    {
+        sudokuBoard.clearField({static_cast<unsigned short>(selectedRow),
+                                static_cast<unsigned short>(selectedColumn)});
+        repaint();
+    }
+}
+
 void SudokuBoardView::resizeEvent(QResizeEvent *event)
 {
     calculateFieldsSize(event->size());

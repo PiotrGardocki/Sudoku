@@ -14,6 +14,7 @@ public:
 
 public slots:
     void generateNewBoard();
+    void clearCurrentField();
 
 protected:
     void resizeEvent(QResizeEvent * event) override;
