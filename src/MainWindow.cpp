@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget * parent)
     QPushButton * penButton = new QPushButton;
     bottomButtons->addWidget(penButton);
     penButton->setText("Pen");
+    connect(penButton, &QPushButton::clicked, view, &SudokuBoardView::flipNotingMode);
 
     QPushButton * clueButton = new QPushButton;
     bottomButtons->addWidget(clueButton);
