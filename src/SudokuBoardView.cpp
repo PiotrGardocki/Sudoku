@@ -25,7 +25,7 @@ void SudokuBoardView::generateNewBoard()
 
 void SudokuBoardView::clearCurrentField()
 {
-    if (selectedRow != -1 && selectedColumn != -1 && !blockedFields.test(static_cast<size_t>(selectedRow * 9 + selectedColumn)))
+    if (selectedRow != -1 && selectedColumn != -1 && isCurrentFieldModifiable())
     {
         sudokuBoard.clearField({static_cast<unsigned short>(selectedRow),
                                 static_cast<unsigned short>(selectedColumn)});
@@ -240,6 +240,11 @@ void SudokuBoardView::calculateBoardStartingPoint()
     auto topMargin = (area.height() - boardWidth) / 2;
 
     startingPoint = area.topLeft() + QPoint(leftMargin, topMargin);
+}
+
+bool SudokuBoardView::isCurrentFieldModifiable()
+{
+    return !blockedFields.test(static_cast<size_t>(selectedRow * 9 + selectedColumn));
 }
 
 void SudokuBoardView::hideFieldsInBoard(float percentage)

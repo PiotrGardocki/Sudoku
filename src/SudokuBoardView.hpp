@@ -32,6 +32,8 @@ private:
     void calculateFieldsSize(const QSize & newSize);
     void calculateBoardStartingPoint();
 
+    bool isFieldModifiable();
+
     void hideFieldsInBoard(float percentage);
     void flipNumberInField(const SudokuIndex & index, unsigned short number);
 
