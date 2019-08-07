@@ -24,4 +24,23 @@ MainWindow::MainWindow(QWidget * parent)
     buttons->addWidget(newGameButton);
     newGameButton->setText("New Game");
     connect(newGameButton, &QPushButton::clicked, view, &SudokuBoardView::generateNewBoard);
+
+    QHBoxLayout * bottomButtons = new QHBoxLayout;
+    lay->addLayout(bottomButtons);
+
+    QPushButton * undoButton = new QPushButton;
+    bottomButtons->addWidget(undoButton);
+    undoButton->setText("Undo");
+
+    QPushButton * clearButton = new QPushButton;
+    bottomButtons->addWidget(clearButton);
+    clearButton->setText("Clear");
+
+    QPushButton * penButton = new QPushButton;
+    bottomButtons->addWidget(penButton);
+    penButton->setText("Pen");
+
+    QPushButton * clueButton = new QPushButton;
+    bottomButtons->addWidget(clueButton);
+    clueButton->setText("Clue");
 }
