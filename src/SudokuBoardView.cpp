@@ -306,7 +306,7 @@ bool SudokuBoardView::handleArrowKey(int key)
 
 bool SudokuBoardView::handleNumberKey(int key)
 {
-    if (blockedFields.test(static_cast<size_t>(selectedRow * 9 + selectedColumn)))
+    if (!isCurrentFieldModifiable())
         return false;
 
     auto keyValue = getNumKeyValue(key);
