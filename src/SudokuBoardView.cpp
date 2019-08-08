@@ -16,7 +16,8 @@ SudokuBoardView::SudokuBoardView(QWidget * parent)
 
 void SudokuBoardView::generateNewBoard()
 {
-    sudokuBoard = SudokuBoard::generateBoard();
+    solvedBoard = SudokuBoard::generateBoard();
+    sudokuBoard = solvedBoard;
     hideFieldsInBoard(20.f);
     selectedRow = -1;
     selectedColumn = -1;

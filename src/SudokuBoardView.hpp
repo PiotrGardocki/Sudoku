@@ -46,6 +46,8 @@ private:
     constexpr static short smallRectFrame = 1;
 
     SudokuBoardWithNotes sudokuBoard;
+    SudokuBoard solvedBoard;
+
     std::bitset<81> blockedFields;
     short selectedRow = -1;
     short selectedColumn = -1;
