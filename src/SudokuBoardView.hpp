@@ -16,6 +16,7 @@ public slots:
     void generateNewBoard();
     void clearCurrentField();
     void flipNotingMode();
+    void revealCurrentField();
 
 protected:
     void resizeEvent(QResizeEvent * event) override;

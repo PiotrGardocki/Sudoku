@@ -40,6 +40,16 @@ void SudokuBoardView::flipNotingMode()
     repaint();
 }
 
+void SudokuBoardView::revealCurrentField()
+{
+    if (selectedRow != -1 && selectedColumn != -1)
+    {
+        SudokuIndex index(static_cast<unsigned short>(selectedRow), static_cast<unsigned short>(selectedColumn));
+        sudokuBoard.setNumber(index, solvedBoard.getNumber(index));
+        repaint();
+    }
+}
+
 void SudokuBoardView::resizeEvent(QResizeEvent *event)
 {
     calculateFieldsSize(event->size());

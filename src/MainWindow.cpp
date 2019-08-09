@@ -45,4 +45,5 @@ MainWindow::MainWindow(QWidget * parent)
     QPushButton * clueButton = new QPushButton;
     bottomButtons->addWidget(clueButton);
     clueButton->setText("Clue");
+    connect(clueButton, &QPushButton::clicked, view, &SudokuBoardView::revealCurrentField);
 }
