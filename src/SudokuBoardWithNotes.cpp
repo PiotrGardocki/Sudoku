@@ -75,7 +75,7 @@ bool SudokuBoardWithNotes::isFieldEmpty(SudokuIndex index) const
     return SudokuBoard::isFieldEmpty(index) && !isFieldNoted(index);
 }
 
-bool SudokuBoardWithNotes::isFieldInNotedMode(SudokuIndex index)
+bool SudokuBoardWithNotes::isFieldInNotedMode(SudokuIndex index) const
 {
     return !isFieldNoted(index);
 }

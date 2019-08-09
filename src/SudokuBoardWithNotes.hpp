@@ -24,7 +24,7 @@ public:
     void clearField(SudokuIndex index);
     bool isFieldEmpty(SudokuIndex index) const;
 
-    bool isFieldInNotedMode(SudokuIndex index);
+    bool isFieldInNotedMode(SudokuIndex index) const;
 
 private:
     std::size_t getStartInternalIndex(const SudokuIndex & index) const;

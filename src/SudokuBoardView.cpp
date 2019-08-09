@@ -177,7 +177,7 @@ void SudokuBoardView::mousePressEvent(QMouseEvent *event)
     repaint();
 }
 
-void SudokuBoardView::drawBigSquares(QPainter & painter, const QPoint & startPoint, int width)
+void SudokuBoardView::drawBigSquares(QPainter & painter, const QPoint & startPoint, int width) const
 {
     for (int x = 0; x < 3; ++x)
     {
@@ -190,7 +190,7 @@ void SudokuBoardView::drawBigSquares(QPainter & painter, const QPoint & startPoi
     }
 }
 
-void SudokuBoardView::drawBackgroundInSmallSquare(QPainter &painter, QRect rect, const SudokuIndex & index)
+void SudokuBoardView::drawBackgroundInSmallSquare(QPainter &painter, QRect rect, const SudokuIndex & index) const
 {
     rect -= QMargins(1, 1, 0, 0);
 
@@ -208,7 +208,7 @@ void SudokuBoardView::drawBackgroundInSmallSquare(QPainter &painter, QRect rect,
 }
 
 void SudokuBoardView::drawTextInSmallSquare(QPainter & painter, const SudokuIndex & index, const QRect & rect, const QPoint & rectStartPoint, const QSize & miniRectSize,
-                                            const QFont & normalFont, const QFont & miniFont)
+                                            const QFont & normalFont, const QFont & miniFont) const
 {
     if (!sudokuBoard.isFieldInNotedMode(index))
     {
@@ -253,7 +253,7 @@ void SudokuBoardView::calculateBoardStartingPoint()
     startingPoint = area.topLeft() + QPoint(leftMargin, topMargin);
 }
 
-bool SudokuBoardView::isCurrentFieldModifiable()
+bool SudokuBoardView::isCurrentFieldModifiable() const
 {
     return !blockedFields.test(static_cast<size_t>(selectedRow * 9 + selectedColumn));
 }

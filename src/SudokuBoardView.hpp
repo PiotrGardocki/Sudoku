@@ -25,15 +25,15 @@ protected:
     virtual void mousePressEvent(QMouseEvent * event) override;
 
 private:
-    void drawBigSquares(QPainter & painter, const QPoint & startPoint, int width);
-    void drawBackgroundInSmallSquare(QPainter & painter, QRect rect, const SudokuIndex & index);
+    void drawBigSquares(QPainter & painter, const QPoint & startPoint, int width) const;
+    void drawBackgroundInSmallSquare(QPainter & painter, QRect rect, const SudokuIndex & index) const;
     void drawTextInSmallSquare(QPainter & painter, const SudokuIndex & index, const QRect & rect, const QPoint & rectStartPoint, const QSize & miniRectSize,
-                               const QFont & normalFont, const QFont & miniFont);
+                               const QFont & normalFont, const QFont & miniFont) const;
 
     void calculateFieldsSize(const QSize & newSize);
     void calculateBoardStartingPoint();
 
-    bool isCurrentFieldModifiable();
+    bool isCurrentFieldModifiable() const;
 
     void hideFieldsInBoard(float percentage);
     void flipNumberInField(const SudokuIndex & index, unsigned short number);
