@@ -20,6 +20,7 @@ public:
     void mousePressEvent(QMouseEvent * event);
     void keyPressEvent(QKeyEvent * event);
 
+private:
     bool isCurrentFieldModifiable() const;
 
     void hideFieldsInBoard(float percentage);
