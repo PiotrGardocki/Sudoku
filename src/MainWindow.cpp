@@ -22,30 +22,27 @@ MainWindow::MainWindow(QWidget * parent)
 
     auto& sudokuController = sudoku->getController();
 
-    QPushButton * newGameButton = new QPushButton;
-    buttons->addWidget(newGameButton);
-    newGameButton->setText("New Game");
+    QPushButton * newGameButton = createButton(*buttons, "New Game");
     connect(newGameButton, &QPushButton::clicked, [&sudokuController](){ sudokuController.generateNewBoard(); });
 
     QHBoxLayout * bottomButtons = new QHBoxLayout;
     lay->addLayout(bottomButtons);
 
-    QPushButton * undoButton = new QPushButton;
-    bottomButtons->addWidget(undoButton);
-    undoButton->setText("Undo");
+    /*QPushButton * undoButton = */createButton(*bottomButtons, "Undo");
 
-    QPushButton * clearButton = new QPushButton;
-    bottomButtons->addWidget(clearButton);
-    clearButton->setText("Clear");
+    QPushButton * clearButton = createButton(*bottomButtons, "Clear");
     connect(clearButton, &QPushButton::clicked, [&sudokuController](){ sudokuController.clearCurrentField(); });
 
-    QPushButton * penButton = new QPushButton;
-    bottomButtons->addWidget(penButton);
-    penButton->setText("Pen");
+    QPushButton * penButton = createButton(*bottomButtons, "Pen");
     connect(penButton, &QPushButton::clicked, [&sudokuController](){ sudokuController.flipNotingMode(); });
 
-    QPushButton * clueButton = new QPushButton;
-    bottomButtons->addWidget(clueButton);
-    clueButton->setText("Clue");
+    QPushButton * clueButton = createButton(*bottomButtons, "Clue");
     connect(clueButton, &QPushButton::clicked, [&sudokuController](){ sudokuController.revealCurrentField(); });
+}
+
+QPushButton * MainWindow::createButton(QLayout & layout, const std::string & text)
+{
+    QPushButton * button = new QPushButton(QString::fromStdString(text));
+    layout.addWidget(button);
+    return button;
 }
