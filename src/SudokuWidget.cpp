@@ -29,3 +29,8 @@ void SudokuWidget::keyPressEvent(QKeyEvent *event)
 {
     controller.keyPressEvent(event);
 }
+
+SudokuBoardController &SudokuWidget::getController()
+{
+    return controller;
+}

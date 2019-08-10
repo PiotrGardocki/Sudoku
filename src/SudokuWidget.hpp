@@ -16,6 +16,8 @@ public:
     void mousePressEvent(QMouseEvent * event) override;
     void keyPressEvent(QKeyEvent * event) override;
 
+    SudokuBoardController & getController();
+
 private:
     SudokuGameplay sudokuGameplay;
     SudokuBoardView view;
