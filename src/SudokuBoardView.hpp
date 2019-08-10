@@ -2,27 +2,30 @@
 #define SUDOKUBOARDVIEW_HPP
 
 #include "SudokuBoardWithNotes.hpp"
+#include "SudokuGameplay.hpp"
 
 #include <QWidget>
 
-class SudokuBoardView : public QWidget
+struct SudokuViewData
 {
-    Q_OBJECT
+    constexpr static short bigRectFrame = 2;
+    constexpr static short smallRectFrame = 1;
 
+    int fieldWidth;
+    QPoint startingPoint;
+};
+
+class SudokuBoardView
+{
 public:
-    explicit SudokuBoardView(QWidget * parent = nullptr);
+    explicit SudokuBoardView(const SudokuGameplay & gameplay, QWidget & widgetToPaintOn);
 
-public slots:
-    void generateNewBoard();
-    void clearCurrentField();
-    void flipNotingMode();
-    void revealCurrentField();
+    void repaintBoard();
 
-protected:
-    void resizeEvent(QResizeEvent * event) override;
-    void paintEvent(QPaintEvent * event) override;
-    virtual void keyPressEvent(QKeyEvent * event) override;
-    virtual void mousePressEvent(QMouseEvent * event) override;
+    const SudokuViewData& getViewData() const;
+
+    void resizeEvent(QResizeEvent * event);
+    void paintEvent(QPaintEvent * event);
 
 private:
     void drawBigSquares(QPainter & painter, const QPoint & startPoint, int width) const;
@@ -33,30 +36,10 @@ private:
     void calculateFieldsSize(const QSize & newSize);
     void calculateBoardStartingPoint();
 
-    bool isCurrentFieldModifiable() const;
-
-    void hideFieldsInBoard(float percentage);
-    void flipNumberInField(const SudokuIndex & index, unsigned short number);
-
-    bool handleArrowKey(int key);
-    bool handleNumberKey(int key);
-    unsigned short getNumKeyValue(int key);
-
 private:
-    constexpr static short bigRectFrame = 2;
-    constexpr static short smallRectFrame = 1;
-
-    SudokuBoardWithNotes sudokuBoard;
-    SudokuBoard solvedBoard;
-
-    std::bitset<81> blockedFields;
-    short selectedRow = -1;
-    short selectedColumn = -1;
-
-    int fieldWidth;
-    QPoint startingPoint;
-
-    bool notingMode = false;
+    SudokuViewData viewData;
+    const SudokuGameplay & gameplay;
+    QWidget & widgetToPaintOn;
 };
 
 #endif // SUDOKUBOARDVIEW_HPP

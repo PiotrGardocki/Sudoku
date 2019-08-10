@@ -25,8 +25,10 @@ CONFIG += c++11
 INCLUDEPATH += src/
 
 SOURCES += \
+    src/SudokuBoardController.cpp \
     src/SudokuBoardView.cpp \
     src/SudokuBoardWithNotes.cpp \
+    src/SudokuWidget.cpp \
     src/main.cpp \
     src/MainWindow.cpp \
     src/SudokuBoard.cpp \
@@ -40,10 +42,13 @@ SOURCES += \
 HEADERS += \
     src/MainWindow.hpp \
     src/SudokuBoard.hpp \
+    src/SudokuBoardController.hpp \
     src/SudokuBoardView.hpp \
     src/SudokuBoardWithNotes.hpp \
+    src/SudokuGameplay.hpp \
     src/SudokuIndex.hpp \
     src/IndexError.hpp \
+    src/SudokuWidget.hpp \
     src/vendor/RandomNumbersLibrary/RandomGeneratorBase.hpp \
     src/vendor/RandomNumbersLibrary/RandomIntegerGenerator.hpp \
     src/vendor/RandomNumbersLibrary/RandomIntegerGenerator.inl \
