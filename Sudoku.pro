@@ -25,6 +25,7 @@ CONFIG += c++11
 INCLUDEPATH += src/
 
 SOURCES += \
+    src/ButtonWithCounter.cpp \
     src/SudokuBoardController.cpp \
     src/SudokuBoardView.cpp \
     src/SudokuBoardWithNotes.cpp \
@@ -40,6 +41,7 @@ SOURCES += \
     src/unit_tests/SudokuBoardTest.cpp
 
 HEADERS += \
+    src/ButtonWithCounter.hpp \
     src/MainWindow.hpp \
     src/SudokuBoard.hpp \
     src/SudokuBoardController.hpp \
