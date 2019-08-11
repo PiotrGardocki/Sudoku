@@ -1,5 +1,6 @@
 #include "MainWindow.hpp"
 #include "SudokuWidget.hpp"
+#include "ButtonWithCounter.hpp"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -36,6 +37,7 @@ MainWindow::MainWindow(QWidget * parent)
     QPushButton * penButton = createButton<QPushButton>(*bottomButtons, "Pen");
     connect(penButton, &QPushButton::clicked, [&sudokuController](){ sudokuController.flipNotingMode(); });
 
-    QPushButton * clueButton = createButton<QPushButton>(*bottomButtons, "Clue");
-    connect(clueButton, &QPushButton::clicked, [&sudokuController](){ sudokuController.revealCurrentField(); });
+    ButtonWithCounter * clueButton = createButton<ButtonWithCounter>(*bottomButtons, "Clue");
+    clueButton->setMaxTimesToClick(3);
+    connect(clueButton, &ButtonWithCounter::clicked, [&sudokuController](){ sudokuController.revealCurrentField(); });
 }
