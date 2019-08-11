@@ -21,10 +21,10 @@ MainWindow::MainWindow(QWidget * parent)
     SudokuWidget * sudoku = new SudokuWidget;
     lay->addWidget(sudoku);
 
-    auto& sudokuController = sudoku->getController();
+    sudokuController = &sudoku->getController();
 
     QPushButton * newGameButton = createButton<QPushButton>(*buttons, "New Game");
-    connect(newGameButton, &QPushButton::clicked, [&sudokuController](){ sudokuController.generateNewBoard(); });
+    connect(newGameButton, &QPushButton::clicked, this, &MainWindow::startNewGame);
 
     QHBoxLayout * bottomButtons = new QHBoxLayout;
     lay->addLayout(bottomButtons);
@@ -32,12 +32,19 @@ MainWindow::MainWindow(QWidget * parent)
     /*QPushButton * undoButton = */createButton<QPushButton>(*bottomButtons, "Undo");
 
     QPushButton * clearButton = createButton<QPushButton>(*bottomButtons, "Clear");
-    connect(clearButton, &QPushButton::clicked, [&sudokuController](){ sudokuController.clearCurrentField(); });
+    connect(clearButton, &QPushButton::clicked, [this](){ sudokuController->clearCurrentField(); });
 
     QPushButton * penButton = createButton<QPushButton>(*bottomButtons, "Pen");
-    connect(penButton, &QPushButton::clicked, [&sudokuController](){ sudokuController.flipNotingMode(); });
+    connect(penButton, &QPushButton::clicked, [this](){ sudokuController->flipNotingMode(); });
 
     ButtonWithCounter * clueButton = createButton<ButtonWithCounter>(*bottomButtons, "Clue");
+
+    startNewGame();
+}
+
+void MainWindow::startNewGame()
+{
+    sudokuController->generateNewBoard();
     clueButton->setMaxTimesToClick(3);
     connect(clueButton, &ButtonWithCounter::clicked, [&sudokuController](){ sudokuController.revealCurrentField(); });
 }

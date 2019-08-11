@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QLayout>
 
+class SudokuBoardController;
+class ButtonWithCounter;
 class QPushButton;
 
 class MainWindow : public QMainWindow
@@ -13,9 +15,16 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget * parent = nullptr);
 
+public slots:
+    void startNewGame();
+
 private:
     template<typename ButtonType>
     ButtonType * createButton(QLayout & layout, const std::string & text);
+
+private:
+    SudokuBoardController * sudokuController;
+    ButtonWithCounter * clueButton;
 };
 
 template<typename ButtonType>
