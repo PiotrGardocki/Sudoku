@@ -6,8 +6,8 @@ ButtonWithCounter::ButtonWithCounter(QWidget * parent)
     initConnection();
 }
 
-ButtonWithCounter::ButtonWithCounter(const std::string & text, QWidget * parent)
-    : QPushButton(QString::fromStdString(text), parent)
+ButtonWithCounter::ButtonWithCounter(const QString & text, QWidget * parent)
+    : QPushButton(text, parent)
 {
     initConnection();
 }

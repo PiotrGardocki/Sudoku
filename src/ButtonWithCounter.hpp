@@ -11,7 +11,7 @@ class ButtonWithCounter : public QPushButton
 
 public:
     explicit ButtonWithCounter(QWidget * parent = nullptr);
-    explicit ButtonWithCounter(const std::string & text, QWidget * parent = nullptr);
+    explicit ButtonWithCounter(const QString & text, QWidget * parent = nullptr);
 
     void setMaxTimesToClick(unsigned short count);
 
@@ -25,7 +25,7 @@ private:
     void initConnection();
 
 private:
-    unsigned short maxTimesToClick;
+    unsigned short maxTimesToClick = 0;
 };
 
 #endif // BUTTONWITHCOUNTER_HPP
