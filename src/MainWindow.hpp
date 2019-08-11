@@ -15,11 +15,11 @@ public:
 
 private:
     template<typename ButtonType>
-    QPushButton * createButton(QLayout & layout, const std::string & text);
+    ButtonType * createButton(QLayout & layout, const std::string & text);
 };
 
 template<typename ButtonType>
-QPushButton * MainWindow::createButton(QLayout & layout, const std::string & text)
+ButtonType * MainWindow::createButton(QLayout & layout, const std::string & text)
 {
     ButtonType * button = new ButtonType(QString::fromStdString(text), this);
     layout.addWidget(button);
