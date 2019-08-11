@@ -3,7 +3,7 @@
 
 #include "QPushButton"
 
-#include <string>
+#include <functional>
 
 class ButtonWithCounter : public QPushButton
 {
@@ -13,6 +13,7 @@ public:
     explicit ButtonWithCounter(QWidget * parent = nullptr);
     explicit ButtonWithCounter(const QString & text, QWidget * parent = nullptr);
 
+    void connectFunction(std::function<bool()> functionToCall);
     void setMaxTimesToClick(unsigned short count);
 
 signals:
@@ -25,6 +26,7 @@ private:
     void initConnection();
 
 private:
+    std::function<bool()> connectedFunction;
     unsigned short maxTimesToClick = 0;
 };
 

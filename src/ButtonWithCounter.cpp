@@ -12,17 +12,27 @@ ButtonWithCounter::ButtonWithCounter(const QString & text, QWidget * parent)
     initConnection();
 }
 
+void ButtonWithCounter::connectFunction(std::function<bool()> functionToCall)
+{
+    connectedFunction = std::move(functionToCall);
+}
+
 void ButtonWithCounter::setMaxTimesToClick(unsigned short count)
 {
     maxTimesToClick = count;
+    if (count)
+        setEnabled(true);
 }
 
 void ButtonWithCounter::emitSignalIfPossible(bool checked)
 {
-    if (maxTimesToClick)
+    if (maxTimesToClick && connectedFunction())
     {
         emit clicked(checked);
         --maxTimesToClick;
+
+        if (maxTimesToClick == 0)
+            setDisabled(true);
     }
 }
 

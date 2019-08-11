@@ -37,7 +37,8 @@ MainWindow::MainWindow(QWidget * parent)
     QPushButton * penButton = createButton<QPushButton>(*bottomButtons, "Pen");
     connect(penButton, &QPushButton::clicked, [this](){ sudokuController->flipNotingMode(); });
 
-    ButtonWithCounter * clueButton = createButton<ButtonWithCounter>(*bottomButtons, "Clue");
+    clueButton = createButton<ButtonWithCounter>(*bottomButtons, "Clue");
+    clueButton->connectFunction([this](){ return sudokuController->revealCurrentField(); });
 
     startNewGame();
 }
@@ -46,5 +47,4 @@ void MainWindow::startNewGame()
 {
     sudokuController->generateNewBoard();
     clueButton->setMaxTimesToClick(3);
-    connect(clueButton, &ButtonWithCounter::clicked, [&sudokuController](){ sudokuController.revealCurrentField(); });
 }
