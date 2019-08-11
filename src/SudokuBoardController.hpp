@@ -2,7 +2,7 @@
 #define SUDOKUBOARDCONTROLLER_HPP
 
 #include "SudokuBoardView.hpp"
-#include "SudokuGameplay.hpp"
+#include "SudokuBoardModel.hpp"
 
 class QMouseEvent;
 class QKeyEvent;
@@ -10,7 +10,7 @@ class QKeyEvent;
 class SudokuBoardController
 {
 public:
-    SudokuBoardController(SudokuGameplay & sudokuData, SudokuBoardView & view);
+    SudokuBoardController(SudokuBoardModel & sudokuModel, SudokuBoardView & view);
 
     void generateNewBoard();
     void clearCurrentField();
@@ -31,7 +31,7 @@ private:
     unsigned short getNumKeyValue(int key);
 
 private:
-    SudokuGameplay & sudokuGameplay;
+    SudokuBoardModel & model;
     SudokuBoard solvedBoard;
     SudokuBoardView & view;
 };

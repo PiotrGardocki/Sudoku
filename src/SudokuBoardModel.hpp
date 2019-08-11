@@ -5,11 +5,12 @@
 
 #include <bitset>
 
-struct SudokuGameplay
+struct SudokuBoardModel
 {
     SudokuBoardWithNotes sudokuBoard;
 
     std::bitset<81> blockedFields;
+
     short selectedRow = -1;
     short selectedColumn = -1;
     bool notingMode = false;

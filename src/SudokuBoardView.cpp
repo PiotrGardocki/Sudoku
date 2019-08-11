@@ -6,8 +6,8 @@
 
 #include <cmath>
 
-SudokuBoardView::SudokuBoardView(const SudokuGameplay & gameplay, QWidget & widgetToPaintOn)
-    : gameplay(gameplay)
+SudokuBoardView::SudokuBoardView(const SudokuBoardModel & model, QWidget & widgetToPaintOn)
+    : model(model)
     , widgetToPaintOn(widgetToPaintOn)
 {
 }
@@ -122,13 +122,13 @@ void SudokuBoardView::drawBackgroundInSmallSquare(QPainter &painter, QRect rect,
 {
     rect -= QMargins(1, 1, 0, 0);
 
-    if (gameplay.blockedFields.test(static_cast<size_t>(index.getRow() * 9 + index.getColumn())))
+    if (model.blockedFields.test(static_cast<size_t>(index.getRow() * 9 + index.getColumn())))
     {
         painter.fillRect(rect, QColor::fromRgb(220, 220, 220));
     }
-    else if (index.getRow() == gameplay.selectedRow && index.getColumn() == gameplay.selectedColumn)
+    else if (index.getRow() == model.selectedRow && index.getColumn() == model.selectedColumn)
     {
-        if (!gameplay.notingMode)
+        if (!model.notingMode)
             painter.fillRect(rect, QColor::fromRgb(161, 224, 227));
         else
             painter.fillRect(rect, Qt::blue);
@@ -138,14 +138,14 @@ void SudokuBoardView::drawBackgroundInSmallSquare(QPainter &painter, QRect rect,
 void SudokuBoardView::drawTextInSmallSquare(QPainter & painter, const SudokuIndex & index, const QRect & rect, const QPoint & rectStartPoint, const QSize & miniRectSize,
                                             const QFont & normalFont, const QFont & miniFont) const
 {
-    if (!gameplay.sudokuBoard.isFieldInNotedMode(index))
+    if (!model.sudokuBoard.isFieldInNotedMode(index))
     {
-        auto text = gameplay.sudokuBoard.getFieldAsString(index);
+        auto text = model.sudokuBoard.getFieldAsString(index);
         painter.drawText(rect, Qt::AlignCenter, QString::fromStdString(text));
     }
     else
     {
-        auto numbers = gameplay.sudokuBoard.getNotedNumbers(index);
+        auto numbers = model.sudokuBoard.getNotedNumbers(index);
 
         for (std::size_t i = 0; i < 9; ++i)
         {

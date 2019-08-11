@@ -43,9 +43,9 @@ HEADERS += \
     src/MainWindow.hpp \
     src/SudokuBoard.hpp \
     src/SudokuBoardController.hpp \
+    src/SudokuBoardModel.hpp \
     src/SudokuBoardView.hpp \
     src/SudokuBoardWithNotes.hpp \
-    src/SudokuGameplay.hpp \
     src/SudokuIndex.hpp \
     src/IndexError.hpp \
     src/SudokuWidget.hpp \

@@ -3,8 +3,8 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 
-SudokuBoardController::SudokuBoardController(SudokuGameplay & sudokuData, SudokuBoardView & view)
-    : sudokuGameplay(sudokuData)
+SudokuBoardController::SudokuBoardController(SudokuBoardModel & sudokuModel, SudokuBoardView & view)
+    : model(sudokuModel)
     , view(view)
 {
 }
@@ -12,35 +12,35 @@ SudokuBoardController::SudokuBoardController(SudokuGameplay & sudokuData, Sudoku
 void SudokuBoardController::generateNewBoard()
 {
     solvedBoard = SudokuBoard::generateBoard();
-    sudokuGameplay.sudokuBoard = solvedBoard;
+    model.sudokuBoard = solvedBoard;
     hideFieldsInBoard(20.f);
-    sudokuGameplay.selectedRow = -1;
-    sudokuGameplay.selectedColumn = -1;
+    model.selectedRow = -1;
+    model.selectedColumn = -1;
     view.repaintBoard();
 }
 
 void SudokuBoardController::clearCurrentField()
 {
-    if (sudokuGameplay.selectedRow != -1 && sudokuGameplay.selectedColumn != -1 && isCurrentFieldModifiable())
+    if (model.selectedRow != -1 && model.selectedColumn != -1 && isCurrentFieldModifiable())
     {
-        sudokuGameplay.sudokuBoard.clearField({static_cast<unsigned short>(sudokuGameplay.selectedRow),
-                                static_cast<unsigned short>(sudokuGameplay.selectedColumn)});
+        model.sudokuBoard.clearField({static_cast<unsigned short>(model.selectedRow),
+                                static_cast<unsigned short>(model.selectedColumn)});
         view.repaintBoard();
     }
 }
 
 void SudokuBoardController::flipNotingMode()
 {
-    sudokuGameplay.notingMode = !sudokuGameplay.notingMode;
+    model.notingMode = !model.notingMode;
     view.repaintBoard();
 }
 
 void SudokuBoardController::revealCurrentField()
 {
-    if (sudokuGameplay.selectedRow != -1 && sudokuGameplay.selectedColumn != -1)
+    if (model.selectedRow != -1 && model.selectedColumn != -1)
     {
-        SudokuIndex index(static_cast<unsigned short>(sudokuGameplay.selectedRow), static_cast<unsigned short>(sudokuGameplay.selectedColumn));
-        sudokuGameplay.sudokuBoard.setNumber(index, solvedBoard.getNumber(index));
+        SudokuIndex index(static_cast<unsigned short>(model.selectedRow), static_cast<unsigned short>(model.selectedColumn));
+        model.sudokuBoard.setNumber(index, solvedBoard.getNumber(index));
         view.repaintBoard();
     }
 }
@@ -60,16 +60,16 @@ void SudokuBoardController::mousePressEvent(QMouseEvent * event)
 
             if (fieldRect.contains(mousePosition))
             {
-                sudokuGameplay.selectedRow = row;
-                sudokuGameplay.selectedColumn = column;
+                model.selectedRow = row;
+                model.selectedColumn = column;
                 view.repaintBoard();
                 return;
             }
         }
     }
 
-    sudokuGameplay.selectedRow = -1;
-    sudokuGameplay.selectedColumn = -1;
+    model.selectedRow = -1;
+    model.selectedColumn = -1;
     view.repaintBoard();
 }
 
@@ -78,7 +78,7 @@ void SudokuBoardController::keyPressEvent(QKeyEvent * event)
     if (event->key() == Qt::Key::Key_Shift)
         flipNotingMode();
 
-    if (sudokuGameplay.selectedRow == -1 || sudokuGameplay.selectedColumn == -1)
+    if (model.selectedRow == -1 || model.selectedColumn == -1)
         return;
 
     if (event->isAutoRepeat())
@@ -92,35 +92,35 @@ void SudokuBoardController::keyPressEvent(QKeyEvent * event)
 
 bool SudokuBoardController::isCurrentFieldModifiable() const
 {
-    return !sudokuGameplay.blockedFields.test(static_cast<size_t>(sudokuGameplay.selectedRow * 9 + sudokuGameplay.selectedColumn));
+    return !model.blockedFields.test(static_cast<size_t>(model.selectedRow * 9 + model.selectedColumn));
 }
 
 void SudokuBoardController::hideFieldsInBoard(float percentage)
 {
-    sudokuGameplay.sudokuBoard.hideFields(percentage);
-    sudokuGameplay.blockedFields.reset();
+    model.sudokuBoard.hideFields(percentage);
+    model.blockedFields.reset();
 
     for (unsigned short row = 0; row < 9; ++row)
         for (unsigned short column = 0; column < 9; ++column)
-            if (sudokuGameplay.sudokuBoard.getNumber({row, column}) != 0)
-                sudokuGameplay.blockedFields.set(row * 9 + column);
+            if (model.sudokuBoard.getNumber({row, column}) != 0)
+                model.blockedFields.set(row * 9 + column);
 }
 
 void SudokuBoardController::flipNumberInField(const SudokuIndex & index, unsigned short number)
 {
-    if (sudokuGameplay.notingMode)
+    if (model.notingMode)
     {
-        if (sudokuGameplay.sudokuBoard.getNotedNumbers(index).test(number - 1))
-            sudokuGameplay.sudokuBoard.clearNote(index, number);
+        if (model.sudokuBoard.getNotedNumbers(index).test(number - 1))
+            model.sudokuBoard.clearNote(index, number);
         else
-            sudokuGameplay.sudokuBoard.noteNumber(index, number);
+            model.sudokuBoard.noteNumber(index, number);
     }
     else
     {
-        if (sudokuGameplay.sudokuBoard.getNumber(index) == number)
-            sudokuGameplay.sudokuBoard.clearField(index);
+        if (model.sudokuBoard.getNumber(index) == number)
+            model.sudokuBoard.clearField(index);
         else
-            sudokuGameplay.sudokuBoard.setNumber(index, number);
+            model.sudokuBoard.setNumber(index, number);
     }
 }
 
@@ -129,20 +129,20 @@ bool SudokuBoardController::handleArrowKey(int key)
     switch (key)
     {
     case Qt::Key_Up:
-        if (sudokuGameplay.selectedRow > 0)
-            --sudokuGameplay.selectedRow;
+        if (model.selectedRow > 0)
+            --model.selectedRow;
         break;
     case Qt::Key_Down:
-        if (sudokuGameplay.selectedRow < 8)
-            ++sudokuGameplay.selectedRow;
+        if (model.selectedRow < 8)
+            ++model.selectedRow;
         break;
     case Qt::Key_Left:
-        if (sudokuGameplay.selectedColumn > 0)
-            --sudokuGameplay.selectedColumn;
+        if (model.selectedColumn > 0)
+            --model.selectedColumn;
         break;
     case Qt::Key_Right:
-        if (sudokuGameplay.selectedColumn < 8)
-            ++sudokuGameplay.selectedColumn;
+        if (model.selectedColumn < 8)
+            ++model.selectedColumn;
         break;
     default:
         return false;
@@ -161,7 +161,7 @@ bool SudokuBoardController::handleNumberKey(int key)
 
     if (keyValue != 0)
     {
-        SudokuIndex index(static_cast<unsigned short>(sudokuGameplay.selectedRow), static_cast<unsigned short>(sudokuGameplay.selectedColumn));
+        SudokuIndex index(static_cast<unsigned short>(model.selectedRow), static_cast<unsigned short>(model.selectedColumn));
         flipNumberInField(index, keyValue);
         view.repaintBoard();
         return true;

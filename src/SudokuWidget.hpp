@@ -19,7 +19,7 @@ public:
     SudokuBoardController & getController();
 
 private:
-    SudokuGameplay sudokuGameplay;
+    SudokuBoardModel model;
     SudokuBoardView view;
     SudokuBoardController controller;
 };

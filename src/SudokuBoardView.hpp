@@ -1,7 +1,7 @@
 #ifndef SUDOKUBOARDVIEW_HPP
 #define SUDOKUBOARDVIEW_HPP
 
-#include "SudokuGameplay.hpp"
+#include "SudokuBoardModel.hpp"
 
 #include <QWidget>
 
@@ -17,7 +17,7 @@ struct SudokuViewData
 class SudokuBoardView
 {
 public:
-    SudokuBoardView(const SudokuGameplay & gameplay, QWidget & widgetToPaintOn);
+    SudokuBoardView(const SudokuBoardModel & model, QWidget & widgetToPaintOn);
 
     void repaintBoard();
 
@@ -37,7 +37,7 @@ private:
 
 private:
     SudokuViewData viewData;
-    const SudokuGameplay & gameplay;
+    const SudokuBoardModel & model;
     QWidget & widgetToPaintOn;
 };
 

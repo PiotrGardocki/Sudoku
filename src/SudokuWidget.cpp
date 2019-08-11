@@ -2,8 +2,8 @@
 
 SudokuWidget::SudokuWidget(QWidget *parent)
     : QWidget(parent)
-    , view(sudokuGameplay, *this)
-    , controller(sudokuGameplay, view)
+    , view(model, *this)
+    , controller(model, view)
 {
     setMinimumSize(400, 400);
     setFocusPolicy(Qt::StrongFocus);
