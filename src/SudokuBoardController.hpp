@@ -15,7 +15,7 @@ public:
     void generateNewBoard();
     void clearCurrentField();
     void flipNotingMode();
-    void revealCurrentField();
+    bool revealCurrentField();
 
     void mousePressEvent(QMouseEvent * event);
     void keyPressEvent(QKeyEvent * event);

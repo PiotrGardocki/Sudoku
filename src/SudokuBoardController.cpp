@@ -35,14 +35,16 @@ void SudokuBoardController::flipNotingMode()
     view.repaintBoard();
 }
 
-void SudokuBoardController::revealCurrentField()
+bool SudokuBoardController::revealCurrentField()
 {
-    if (model.selectedRow != -1 && model.selectedColumn != -1)
-    {
-        SudokuIndex index(static_cast<unsigned short>(model.selectedRow), static_cast<unsigned short>(model.selectedColumn));
-        model.sudokuBoard.setNumber(index, solvedBoard.getNumber(index));
-        view.repaintBoard();
-    }
+    if (model.selectedRow == -1 || model.selectedColumn == -1 || !isCurrentFieldModifiable())
+        return false;
+
+    SudokuIndex index(static_cast<unsigned short>(model.selectedRow), static_cast<unsigned short>(model.selectedColumn));
+    model.sudokuBoard.setNumber(index, solvedBoard.getNumber(index));
+    model.blockedFields.set(static_cast<size_t>(model.selectedRow * 9 + model.selectedColumn), true);
+    view.repaintBoard();
+    return true;
 }
 
 void SudokuBoardController::mousePressEvent(QMouseEvent * event)
