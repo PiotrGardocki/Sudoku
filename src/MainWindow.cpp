@@ -29,7 +29,8 @@ MainWindow::MainWindow(QWidget * parent)
     QHBoxLayout * bottomButtons = new QHBoxLayout;
     lay->addLayout(bottomButtons);
 
-    /*QPushButton * undoButton = */createButton<QPushButton>(*bottomButtons, "Undo");
+    QPushButton * undoButton = createButton<QPushButton>(*bottomButtons, "Undo");
+    connect(undoButton, &QPushButton::clicked, [this](){ sudokuController->undoState(); });
 
     QPushButton * clearButton = createButton<QPushButton>(*bottomButtons, "Clear");
     connect(clearButton, &QPushButton::clicked, [this](){ sudokuController->clearCurrentField(); });

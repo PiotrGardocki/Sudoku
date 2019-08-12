@@ -16,6 +16,7 @@ void SudokuBoardController::generateNewBoard()
     hideFieldsInBoard(20.f);
     model.selectedRow = -1;
     model.selectedColumn = -1;
+    fieldStates.clear();
     view.repaintBoard();
 }
 
@@ -164,6 +165,7 @@ bool SudokuBoardController::handleNumberKey(int key)
     if (keyValue != 0)
     {
         SudokuIndex index(static_cast<unsigned short>(model.selectedRow), static_cast<unsigned short>(model.selectedColumn));
+        saveFieldState(index);
         flipNumberInField(index, keyValue);
         view.repaintBoard();
         return true;
@@ -196,4 +198,51 @@ unsigned short SudokuBoardController::getNumKeyValue(int key)
     default:
         return 0;
     }
+}
+
+void SudokuBoardController::saveFieldState(const SudokuIndex & index)
+{
+    FieldState state;
+    state.index = index;
+
+    if (model.sudokuBoard.isFieldInNotedMode(index))
+    {
+        state.noteMode = true;
+        auto notedNumbers = model.sudokuBoard.getNotedNumbers(index);
+        state.numberState = notedNumbers;
+    }
+    else
+    {
+        state.noteMode = false;
+        auto number = model.sudokuBoard.getNumber(index);
+        state.numberState = number;
+    }
+
+    fieldStates.push_back(state);
+}
+
+void SudokuBoardController::undoState()
+{
+    if (fieldStates.size() == 0)
+        return;
+
+    const auto& state = fieldStates.back();
+
+    model.notingMode = state.noteMode;
+    if (state.noteMode)
+    {
+        auto notes = std::get<std::bitset<9>>(state.numberState);
+        model.sudokuBoard.applyBitset(state.index, notes);
+    }
+    else
+    {
+        auto number = std::get<unsigned short>(state.numberState);
+        if (number)
+            flipNumberInField(state.index, number);
+        else
+            model.sudokuBoard.clearField(state.index);
+    }
+
+    fieldStates.pop_back();
+    view.repaintBoard();
 }
