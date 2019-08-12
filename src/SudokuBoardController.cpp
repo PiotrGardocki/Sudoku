@@ -226,7 +226,15 @@ void SudokuBoardController::undoState()
     if (fieldStates.size() == 0)
         return;
 
-    const auto& state = fieldStates.back();
+    auto state = fieldStates.back();
+
+    while (fieldStates.size() != 0 && model.blockedFields.test(static_cast<size_t>(state.index.getRow() * 9 + state.index.getColumn())))
+    {
+        fieldStates.pop_back();
+        state = fieldStates.back();
+    }
+    if (fieldStates.size() == 0)
+        return;
 
     model.notingMode = state.noteMode;
     if (state.noteMode)
