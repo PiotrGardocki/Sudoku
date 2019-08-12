@@ -31,6 +31,17 @@ void SudokuBoardWithNotes::noteNumber(SudokuIndex index, unsigned short number)
     notedNumbers.set(internalIndex);
 }
 
+void SudokuBoardWithNotes::applyBitset(SudokuIndex index, std::bitset<9> numbersToNote)
+{
+    auto internalIndex = getStartInternalIndex(index);
+
+    for (std::size_t i = 0; i < 9; ++i)
+    {
+        notedNumbers.set(internalIndex, numbersToNote.test(i));
+        ++internalIndex;
+    }
+}
+
 void SudokuBoardWithNotes::clearNote(SudokuIndex index, unsigned short number)
 {
     std::size_t internalIndex = getStartInternalIndex(index) + number - 1;
