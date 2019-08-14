@@ -26,6 +26,7 @@ INCLUDEPATH += src/
 
 SOURCES += \
     src/ButtonWithCounter.cpp \
+    src/NewGameDialog.cpp \
     src/SudokuBoardController.cpp \
     src/SudokuBoardView.cpp \
     src/SudokuBoardWithNotes.cpp \
@@ -43,6 +44,7 @@ SOURCES += \
 HEADERS += \
     src/ButtonWithCounter.hpp \
     src/MainWindow.hpp \
+    src/NewGameDialog.hpp \
     src/SudokuBoard.hpp \
     src/SudokuBoardController.hpp \
     src/SudokuBoardModel.hpp \
