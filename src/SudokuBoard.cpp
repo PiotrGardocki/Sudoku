@@ -1,5 +1,6 @@
 #include "SudokuBoard.hpp"
 #include "vendor/RandomNumbersLibrary/RandomIntegerGenerator.hpp"
+#include "vendor/RandomNumbersLibrary/RandomRealNumberGenerator.hpp"
 
 #include <stdexcept>
 #include <algorithm>
@@ -48,10 +49,10 @@ void SudokuBoard::hideFields(float percentage)
     if (percentage < 0.f || percentage > 100.f)
         throw std::runtime_error(std::string("Percentage has to be in range [0,100], given: ") + std::to_string(percentage));
 
-    RandomIntegerGenerator<int> condition(0, 1);
+    RandomRealNumberGenerator<float> condition(0.f, 100.f);
 
     for (auto& number : numbers)
-        if (condition())
+        if (condition() <= percentage)
             number = 0;
 }
 
