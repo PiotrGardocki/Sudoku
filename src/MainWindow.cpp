@@ -41,7 +41,6 @@ MainWindow::MainWindow(QWidget * parent)
     clueButton = createButton<ButtonWithCounter>(*bottomButtons, "Clue");
     clueButton->connectFunction([this](){ return sudokuController->revealCurrentField(); });
 
-    startNewGame();
 }
 
 void MainWindow::startNewGame()

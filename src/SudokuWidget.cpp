@@ -7,7 +7,6 @@ SudokuWidget::SudokuWidget(QWidget *parent)
 {
     setMinimumSize(400, 400);
     setFocusPolicy(Qt::StrongFocus);
-    controller.generateNewBoard();
 }
 
 void SudokuWidget::resizeEvent(QResizeEvent *event)
