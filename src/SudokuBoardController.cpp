@@ -9,11 +9,11 @@ SudokuBoardController::SudokuBoardController(SudokuBoardModel & sudokuModel, Sud
 {
 }
 
-void SudokuBoardController::generateNewBoard()
+void SudokuBoardController::generateNewBoard(float percentageOfDeletedFields)
 {
     solvedBoard = SudokuBoard::generateBoard();
     model.sudokuBoard = solvedBoard;
-    hideFieldsInBoard(20.f);
+    hideFieldsInBoard(percentageOfDeletedFields);
     model.selectedRow = -1;
     model.selectedColumn = -1;
     fieldStates.clear();

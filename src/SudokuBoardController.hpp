@@ -21,7 +21,7 @@ class SudokuBoardController
 public:
     SudokuBoardController(SudokuBoardModel & sudokuModel, SudokuBoardView & view);
 
-    void generateNewBoard();
+    void generateNewBoard(float percentageOfDeletedFields);
     void clearCurrentField();
     void flipNotingMode();
     bool revealCurrentField();

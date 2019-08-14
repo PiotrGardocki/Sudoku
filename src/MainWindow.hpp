@@ -6,6 +6,8 @@
 
 class SudokuBoardController;
 class ButtonWithCounter;
+class NewGameDialog;
+
 class QPushButton;
 
 class MainWindow : public QMainWindow
@@ -25,6 +27,7 @@ private:
 private:
     SudokuBoardController * sudokuController;
     ButtonWithCounter * clueButton;
+    NewGameDialog * dialog;
 };
 
 template<typename ButtonType>

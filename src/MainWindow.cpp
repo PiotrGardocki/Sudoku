@@ -1,6 +1,7 @@
 #include "MainWindow.hpp"
 #include "SudokuWidget.hpp"
 #include "ButtonWithCounter.hpp"
+#include "NewGameDialog.hpp"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -41,10 +42,14 @@ MainWindow::MainWindow(QWidget * parent)
     clueButton = createButton<ButtonWithCounter>(*bottomButtons, "Clue");
     clueButton->connectFunction([this](){ return sudokuController->revealCurrentField(); });
 
+    dialog = new NewGameDialog(this);
 }
 
 void MainWindow::startNewGame()
 {
-    sudokuController->generateNewBoard();
+    dialog->exec();
+    int percent = dialog->getLevel();
+
+    sudokuController->generateNewBoard(percent);
     clueButton->setMaxTimesToClick(3);
 }
