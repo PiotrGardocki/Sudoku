@@ -1,7 +1,7 @@
 #ifndef BUTTONWITHCOUNTER_HPP
 #define BUTTONWITHCOUNTER_HPP
 
-#include "QPushButton"
+#include <QPushButton>
 
 #include <functional>
 
@@ -17,16 +17,18 @@ public:
     void setMaxTimesToClick(unsigned short count);
 
 signals:
-    void clicked(bool checked = false);
+    void clickedAndAccepted(bool checked = false);
 
 private slots:
     void emitSignalIfPossible(bool checked = false);
 
 private:
     void initConnection();
+    void updateText();
 
 private:
     std::function<bool()> connectedFunction;
+    QString basicText;
     unsigned short maxTimesToClick = 0;
 };
 
