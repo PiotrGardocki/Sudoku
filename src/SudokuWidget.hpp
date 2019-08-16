@@ -8,6 +8,8 @@
 
 class SudokuWidget : public QWidget
 {
+    Q_OBJECT
+
 public:
     explicit SudokuWidget(QWidget * parent = nullptr);
 
@@ -17,6 +19,9 @@ public:
     void keyPressEvent(QKeyEvent * event) override;
 
     SudokuBoardController & getController();
+
+signals:
+    void sudokuSolved();
 
 private:
     SudokuBoardModel model;

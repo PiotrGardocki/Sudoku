@@ -27,6 +27,8 @@ void SudokuWidget::mousePressEvent(QMouseEvent *event)
 void SudokuWidget::keyPressEvent(QKeyEvent *event)
 {
     controller.keyPressEvent(event);
+    if (controller.isSudokuSolved())
+        emit sudokuSolved();
 }
 
 SudokuBoardController &SudokuWidget::getController()
