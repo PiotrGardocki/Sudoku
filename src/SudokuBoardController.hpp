@@ -29,6 +29,8 @@ public:
     void mousePressEvent(QMouseEvent * event);
     void keyPressEvent(QKeyEvent * event);
 
+    bool isSudokuSolved() const;
+
 private:
     bool isCurrentFieldModifiable() const;
 

@@ -93,6 +93,11 @@ void SudokuBoardController::keyPressEvent(QKeyEvent * event)
         handleNumberKey(key);
 }
 
+bool SudokuBoardController::isSudokuSolved() const
+{
+    return model.sudokuBoard.isSolved();
+}
+
 bool SudokuBoardController::isCurrentFieldModifiable() const
 {
     return !model.blockedFields.test(static_cast<size_t>(model.selectedRow * 9 + model.selectedColumn));
