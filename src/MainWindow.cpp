@@ -6,10 +6,15 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QFile>
 
 MainWindow::MainWindow(QWidget * parent)
     : QMainWindow(parent)
 {
+//    QFile stylesheetFile("style.css");
+//    stylesheetFile.open(QFile::OpenModeFlag::ReadOnly);
+//    setStyleSheet(QString::fromLatin1(stylesheetFile.readAll()));
+
     QWidget * widget = new QWidget;
     setCentralWidget(widget);
 
@@ -41,6 +46,8 @@ MainWindow::MainWindow(QWidget * parent)
 
     clueButton = createButton<ButtonWithCounter>(*bottomButtons, "Clue");
     clueButton->connectFunction([this](){ return sudokuController->revealCurrentField(); });
+
+    connect(sudoku, &SudokuWidget::sudokuSolved, this, &MainWindow::startNewGame);
 
     dialog = new NewGameDialog(this);
 }
