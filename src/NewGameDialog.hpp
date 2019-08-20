@@ -10,10 +10,10 @@ class NewGameDialog : public QDialog
 public:
     explicit NewGameDialog(QWidget * parent = nullptr);
 
-    int getLevel() const;
+    float getLevel() const;
 
 private:
-    int level;
+    float level;
 };
 
 #endif // NEWGAMEDIALOG_HPP

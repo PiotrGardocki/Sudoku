@@ -55,7 +55,7 @@ MainWindow::MainWindow(QWidget * parent)
 void MainWindow::startNewGame()
 {
     dialog->exec();
-    int percent = dialog->getLevel();
+    auto percent = dialog->getLevel();
 
     sudokuController->generateNewBoard(percent);
     clueButton->setMaxTimesToClick(3);

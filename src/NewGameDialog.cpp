@@ -11,18 +11,18 @@ NewGameDialog::NewGameDialog(QWidget * parent)
 
     QPushButton * easy = new QPushButton("easy", this);
     layout->addWidget(easy);
-    connect(easy, &QPushButton::clicked, [this](){ level = 15; accept(); });
+    connect(easy, &QPushButton::clicked, [this](){ level = 15.f; accept(); });
 
     QPushButton * medium = new QPushButton("medium", this);
     layout->addWidget(medium);
-    connect(medium, &QPushButton::clicked, [this](){ level = 40; accept(); });
+    connect(medium, &QPushButton::clicked, [this](){ level = 40.f; accept(); });
 
     QPushButton * hard = new QPushButton("hard", this);
     layout->addWidget(hard);
-    connect(hard, &QPushButton::clicked, [this](){ level = 80; accept(); });
+    connect(hard, &QPushButton::clicked, [this](){ level = 80.f; accept(); });
 }
 
-int NewGameDialog::getLevel() const
+float NewGameDialog::getLevel() const
 {
     return level;
 }
