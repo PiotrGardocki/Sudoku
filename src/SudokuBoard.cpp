@@ -208,6 +208,14 @@ bool SudokuBoard::isSolved() const
     return true;
 }
 
+bool SudokuBoard::isFilled() const
+{
+    for (auto& number : numbers)
+        if (number == 0)
+            return false;
+    return true;
+}
+
 namespace
 {
     bool previousIndex(SudokuIndex & index)

@@ -109,6 +109,15 @@ bool SudokuBoardController::isSudokuSolved() const
     return model.sudokuBoard.isSolved();
 }
 
+SudokuBoardController::GameState SudokuBoardController::getCurrentState() const
+{
+    if (!model.sudokuBoard.isFilled())
+        return GameState::unsolved;
+    if (model.sudokuBoard.isSolved())
+        return GameState::win;
+    return GameState::lose;
+}
+
 bool SudokuBoardController::isCurrentFieldModifiable() const
 {
     return !model.blockedFields.test(static_cast<size_t>(model.selectedRow * 9 + model.selectedColumn));

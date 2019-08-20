@@ -33,6 +33,9 @@ public:
 
     bool isSudokuSolved() const;
 
+    enum class GameState { win, lose, unsolved };
+    GameState getCurrentState() const;
+
 private:
     bool isCurrentFieldModifiable() const;
 

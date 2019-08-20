@@ -27,8 +27,18 @@ void SudokuWidget::mousePressEvent(QMouseEvent *event)
 void SudokuWidget::keyPressEvent(QKeyEvent *event)
 {
     controller.keyPressEvent(event);
-    if (controller.isSudokuSolved())
-        emit sudokuSolved();
+
+    auto gameState = controller.getCurrentState();
+    switch (gameState)
+    {
+    case SudokuBoardController::GameState::win:
+        emit boardFilled(true);
+        break;
+    case SudokuBoardController::GameState::lose:
+        emit boardFilled(false);
+        break;
+    default:;
+    }
 }
 
 SudokuBoardController &SudokuWidget::getController()

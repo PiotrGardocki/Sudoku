@@ -21,6 +21,7 @@ public:
 
     bool doesFieldCollide(SudokuIndex index) const;
     bool isSolved() const;
+    bool isFilled() const;
 
     static SudokuBoard generateBoard();
 

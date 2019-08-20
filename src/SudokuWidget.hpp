@@ -22,6 +22,7 @@ public:
 
 signals:
     void sudokuSolved();
+    void boardFilled(bool won);
 
 private:
     SudokuBoardModel model;
