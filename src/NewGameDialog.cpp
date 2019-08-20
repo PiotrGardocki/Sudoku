@@ -9,6 +9,10 @@ NewGameDialog::NewGameDialog(QWidget * parent)
     QVBoxLayout * layout = new QVBoxLayout;
     setLayout(layout);
 
+    QPushButton * reset = new QPushButton("reset", this);
+    layout->addWidget(reset);
+    connect(reset, &QPushButton::clicked, [this](){ level = 0.f; accept(); });
+
     QPushButton * easy = new QPushButton("easy", this);
     layout->addWidget(easy);
     connect(easy, &QPushButton::clicked, [this](){ level = 15.f; accept(); });

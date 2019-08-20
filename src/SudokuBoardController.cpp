@@ -56,6 +56,7 @@ void SudokuBoardController::resetGame()
         for (unsigned short column = 0; column < 9; ++column)
             if (!model.blockedFields.test(static_cast<size_t>(row * 9 + column)))
                 model.sudokuBoard.clearField({row, column});
+    view.repaintBoard();
 }
 
 void SudokuBoardController::mousePressEvent(QMouseEvent * event)

@@ -57,6 +57,9 @@ void MainWindow::startNewGame()
     dialog->exec();
     auto percent = dialog->getLevel();
 
-    sudokuController->generateNewBoard(percent);
+    if (percent == 0.f)
+        sudokuController->resetGame();
+    else
+        sudokuController->generateNewBoard(percent);
     clueButton->setMaxTimesToClick(3);
 }
