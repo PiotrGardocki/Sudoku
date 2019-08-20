@@ -19,6 +19,7 @@ public:
 
 public slots:
     void startNewGame();
+    void gameEnd(bool won);
 
 private:
     template<typename ButtonType>

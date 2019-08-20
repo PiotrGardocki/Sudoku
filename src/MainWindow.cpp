@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget * parent)
     clueButton = createButton<ButtonWithCounter>(*bottomButtons, "Clue");
     clueButton->connectFunction([this](){ return sudokuController->revealCurrentField(); });
 
-    connect(sudoku, &SudokuWidget::sudokuSolved, this, &MainWindow::startNewGame);
+    connect(sudoku, &SudokuWidget::boardFilled, this, &MainWindow::gameEnd);
 
     dialog = new NewGameDialog(this);
 }
@@ -62,4 +62,11 @@ void MainWindow::startNewGame()
     else
         sudokuController->generateNewBoard(percent);
     clueButton->setMaxTimesToClick(3);
+}
+
+void MainWindow::gameEnd(bool won)
+{
+    if (won)
+        startNewGame();
+
 }
