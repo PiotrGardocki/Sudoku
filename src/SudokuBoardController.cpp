@@ -48,6 +48,16 @@ bool SudokuBoardController::revealCurrentField()
     return true;
 }
 
+void SudokuBoardController::resetGame()
+{
+    model.sudokuBoard = solvedBoard;
+
+    for (unsigned short row = 0; row < 9; ++row)
+        for (unsigned short column = 0; column < 9; ++column)
+            if (!model.blockedFields.test(static_cast<size_t>(row * 9 + column)))
+                model.sudokuBoard.clearField({row, column});
+}
+
 void SudokuBoardController::mousePressEvent(QMouseEvent * event)
 {
     auto mousePosition = event->pos();

@@ -26,6 +26,8 @@ public:
     void flipNotingMode();
     bool revealCurrentField();
 
+    void resetGame();
+
     void mousePressEvent(QMouseEvent * event);
     void keyPressEvent(QKeyEvent * event);
 
