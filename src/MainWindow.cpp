@@ -54,7 +54,9 @@ MainWindow::MainWindow(QWidget * parent)
 
 void MainWindow::startNewGame()
 {
-    dialog->exec();
+    if (dialog->exec() == QDialog::Rejected)
+        return;
+
     auto percent = dialog->getLevel();
 
     if (percent == 0.f)
