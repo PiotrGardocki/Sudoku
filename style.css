@@ -1,0 +1,11 @@
+MainWindow {
+    background-color: gray;
+}
+
+QPushButton {
+    min-height: 50px;
+} 
+
+QPushButton:disabled {
+    background-color: gray;
+}
